@@ -1,6 +1,9 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
+//require thought model
+const landHoldingSchema = require("./landHolding");
 
-const OwnerSchema = new mongoose.Schema(
+// Schema to create owner model
+const ownerSchema = new Schema(
   {
     name: {
       type: String,
@@ -23,8 +26,29 @@ const OwnerSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    //Array of _id values referencing the Land Holding model
+    landHoldings: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "landHolding",
+      },
+    ],
   },
-  { timestamps: true }
+
+  //schema settings
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
+  }
 );
 
-module.exports = mongoose.model("Owner", OwnerSchema);
+ownerSchema.virtual("landHoldingCount").get(function () {
+  return this.landHoldings.length;
+  //the length will be the number of objects in the friends array. The objects are land holdings
+});
+
+const Owner = model("Owner", ownerSchema);
+
+module.exports = Owner;
