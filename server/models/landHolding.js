@@ -56,10 +56,10 @@ const landHoldingSchema = new Schema({
   },
   //schema settings
 
-  toJSON: {
-    virtuals: true,
-  },
-  id: false,
+  // toJSON: {
+  //   virtuals: true,
+  // },
+  // id: false,
 });
 
 //use thoughtSchema to build model called thought

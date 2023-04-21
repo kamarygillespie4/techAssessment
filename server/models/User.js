@@ -14,15 +14,15 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-  },
+  }
 
   //schema settings
-  {
-    toJSON: {
-      virtuals: true,
-    },
-    id: false,
-  }
+  // {
+  //   toJSON: {
+  //     virtuals: true,
+  //   },
+  //   id: false,
+  // }
 );
 
 const User = model("User", userSchema);

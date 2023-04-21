@@ -8,7 +8,6 @@ const ownerSchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     entityType: {
       type: String,
@@ -33,15 +32,15 @@ const ownerSchema = new Schema(
         ref: "landHolding",
       },
     ],
-  },
+  }
 
   //schema settings
-  {
-    toJSON: {
-      virtuals: true,
-    },
-    id: false,
-  }
+  // {
+  //   toJSON: {
+  //     virtuals: true,
+  //   },
+  //   id: false,
+  // }
 );
 
 ownerSchema.virtual("landHoldingCount").get(function () {
