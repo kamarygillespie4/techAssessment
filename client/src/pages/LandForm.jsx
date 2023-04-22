@@ -22,9 +22,9 @@ const LandForm = (props) => {
     console.log(titleSource);
   };
   return (
-    <div className="auth-form-container">
+    <div className="">
       <h2>Create Land Holding</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="landHoldingForm" onSubmit={handleSubmit}>
         <label htmlFor="owner">Owner</label>
         <input
           value={owner}

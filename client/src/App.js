@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import LandForm from "./pages/LandForm";
+import OwnerForm from "./pages/OwnerForm";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
         <Route path="/landForm" element={<LandForm />} />
+        <Route path="/ownerForm" element={<OwnerForm />} />
       </Routes>
     </Router>
   );

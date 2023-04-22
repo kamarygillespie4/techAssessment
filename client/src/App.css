@@ -10,7 +10,9 @@
 
 .auth-form-container,
 .login-form,
-.register-form {
+.register-form,
+.landHoldingForm,
+.ownerForm {
   display: flex;
   flex-direction: column;
 }
