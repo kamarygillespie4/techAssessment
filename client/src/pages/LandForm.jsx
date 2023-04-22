@@ -88,6 +88,47 @@ const LandForm = (props) => {
           id="range"
           name="range"
         />
+        <label htmlFor="titleSource">Title Source</label>
+        <div>
+          <input
+            type="radio"
+            name="titleSource"
+            value="Class A"
+            id="classA"
+            onChange={(e) => setTitleSource(e.target.value)}
+          />
+          <label htmlFor="contactChoice1">Class A</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="titleSource"
+            value="Class B"
+            id="classb"
+            onChange={(e) => setTitleSource(e.target.value)}
+          />
+          <label htmlFor="contactChoice1">Class B</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="titleSource"
+            value="Class C"
+            id="classC"
+            onChange={(e) => setTitleSource(e.target.value)}
+          />
+          <label htmlFor="contactChoice1">Class C</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="titleSource"
+            value="Class D"
+            id="classD"
+            onChange={(e) => setTitleSource(e.target.value)}
+          />
+          <label htmlFor="contactChoice1">Class D</label>
+        </div>
 
         <button type="submit">Create</button>
       </form>
@@ -96,35 +137,3 @@ const LandForm = (props) => {
 };
 
 export default LandForm;
-
-// <label htmlFor="titleSource">Title Source</label>
-// <div className="">
-//   <div>
-//     <input
-//       type="radio"
-//       id="classA"
-//       name="titleSource"
-//       value={titleSource}
-//       onChange={(e) => setTitleSource(e.target.value)}
-//     />
-//     <label for="classA">Class A</label>
-//   </div>
-//   <div>
-//     <input
-//       type="radio"
-//       id="classB"
-//       name="titleSource"
-//       value="classB"
-//       onChange={(e) => setTownship(e.target.value)}
-//     />
-//     <label for="classA">Class B</label>
-//   </div>
-//   <div>
-//     <input type="radio" id="classA" name="titleSource" value="classA" />
-//     <label for="classA">Class A</label>
-//   </div>
-//   <div>
-//     <input type="radio" id="classA" name="titleSource" value="classA" />
-//     <label for="classA">Class A</label>
-//   </div>
-// </div>
