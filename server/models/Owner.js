@@ -29,18 +29,17 @@ const ownerSchema = new Schema(
     landHoldings: [
       {
         type: Schema.Types.ObjectId,
-        ref: "landHolding",
+        ref: "LandHolding",
       },
     ],
+  },
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
   }
-
-  //schema settings
-  // {
-  //   toJSON: {
-  //     virtuals: true,
-  //   },
-  //   id: false,
-  // }
 );
 
 ownerSchema.virtual("landHoldingCount").get(function () {

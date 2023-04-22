@@ -5,6 +5,8 @@ const {
   createOwner,
   updateOwner,
   deleteOwner,
+  addLandHolding,
+  deleteLandHolding,
 } = require("../../controllers/ownerControllers");
 
 // /api/owners
@@ -16,5 +18,9 @@ router
   .get(getSingleOwner)
   .put(updateOwner)
   .delete(deleteOwner);
+router
+  .route("/:ownerId/landHoldings/:landHoldingId")
+  .post(addLandHolding)
+  .delete(deleteLandHolding);
 
 module.exports = router;

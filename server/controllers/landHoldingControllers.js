@@ -61,9 +61,7 @@ module.exports = {
   deleteLandHolding(req, res) {
     LandHolding.findOneAndDelete({ _id: req.params.landHoldingId })
 
-      .then(() =>
-        res.json({ message: "Owner and associated land holdings deleted!" })
-      )
+      .then(() => res.json({ message: "Land holding deleted!" }))
       .catch((err) => res.status(500).json(err));
   },
 };

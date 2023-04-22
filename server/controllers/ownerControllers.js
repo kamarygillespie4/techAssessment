@@ -73,4 +73,37 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+
+  //POST to add a new land holding to a owners's  list
+  addLandHolding(req, res) {
+    Owner.findOneAndUpdate(
+      { _id: req.params.ownerId },
+      { $addToSet: { landHoldings: req.params.landHodingId } },
+      { new: true, runValidators: true }
+    )
+      .then((owner) => {
+        if (!owner) {
+          res.status(404).json({ message: "No owner with this id" });
+          return;
+        }
+        res.json(owner);
+      })
+      .catch((err) => res.json(err));
+  },
+
+  //Deleter to remove a  land holding from a owners's  list
+  deleteLandHolding(req, res) {
+    Owner.findOneAndUpdate(
+      { _id: req.params.ownerId },
+      { $pull: { landHoldings: req.params.landHoldingId } },
+      { new: true }
+    )
+      .then((owner) => {
+        if (!owner) {
+          return res.status(404).json({ message: "No owner with this id!" });
+        }
+        res.json(owner);
+      })
+      .catch((err) => res.json(err));
+  },
 };
