@@ -10,6 +10,9 @@ const LandForm = (props) => {
   const [range, setRange] = useState("");
   const [titleSource, setTitleSource] = useState("");
 
+  const sectionName = section + "-" + township + "-" + range;
+  const name = sectionName + " " + legalEntity;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(owner);
@@ -20,6 +23,8 @@ const LandForm = (props) => {
     console.log(township);
     console.log(range);
     console.log(titleSource);
+    console.log(sectionName);
+    console.log(name);
   };
   return (
     <div className="">
