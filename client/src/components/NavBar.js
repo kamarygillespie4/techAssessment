@@ -1,68 +1,115 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  FaAngleRight,
-  FaAngleLeft,
-  FaChartBar,
-  FaThLarge,
-  FaShoppingCart,
-  FaCog,
-  FaSignOutAlt,
-  FaBars,
-} from "react-icons/fa";
-import { NavLink } from "react-router-dom";
-import "./Navbar.css";
+  MDBContainer,
+  MDBCollapse,
+  MDBNavbar,
+  MDBNavbarToggler,
+} from "mdb-react-ui-kit";
 
-const ICON_SIZE = 20;
+import { SlMenu } from "react-icons/sl";
 
-function NavBar({ visible, show }) {
+const NavBar = () => {
+  const [showNavExternal, setShowNavExternal] = useState(false);
   return (
     <>
-      <div className="mobile-nav">
-        <button className="mobile-nav-btn" onClick={() => show(!visible)}>
-          <FaBars size={24} />
-        </button>
-      </div>
-      <nav className={!visible ? "navbar" : ""}>
-        <button
-          type="button"
-          className="nav-btn"
-          onClick={() => show(!visible)}
-        >
-          {!visible ? <FaAngleRight size={30} /> : <FaAngleLeft size={30} />}
-        </button>
-        <div>
-          <NavLink className="logo" to="/">
-            {/* <img src={require("../assets/Images/logo.png")} alt="logo" /> */}
-          </NavLink>
-          <div className="links nav-top">
-            <NavLink to="/dashboard" className="nav-link">
-              <FaThLarge size={ICON_SIZE} />
-              <span>Dashboard</span>
-            </NavLink>
-            <NavLink to="/analytics" className="nav-link">
-              <FaChartBar size={ICON_SIZE} />
-              <span>Analytics </span>
-            </NavLink>
-            <NavLink to="/orders" className="nav-link">
-              <FaShoppingCart size={ICON_SIZE} />
-              <span>Orders</span>
-            </NavLink>
-          </div>
-        </div>
+      <MDBNavbar>
+        <MDBContainer fluid>
+          <span>Phoenix Capital Group</span>
+          <MDBNavbarToggler
+            className="ms-auto"
+            type="button"
+            data-target="#navbarToggleExternalContent"
+            aria-controls="navbarToggleExternalContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            onClick={() => setShowNavExternal(!showNavExternal)}
+          >
+            <SlMenu />
+          </MDBNavbarToggler>
+        </MDBContainer>
+      </MDBNavbar>
 
-        <div className="links">
-          <NavLink to="/settings" className="nav-link">
-            <FaCog size={ICON_SIZE} />
-            <span>Settings</span>
-          </NavLink>
-          <NavLink to="/Sign-out" className="nav-link">
-            <FaSignOutAlt size={ICON_SIZE} />
-            <span>Logout</span>
-          </NavLink>
+      <MDBCollapse show={showNavExternal}>
+        <div className="flex flex-row bg-light shadow-3 p-4">
+          <ul>
+            <li>
+              <a className=" m-1" color="link" href="/home">
+                Home
+              </a>
+            </li>
+            <li>
+              <a className=" m-1" color="link" href="/allOwners">
+                View Owners
+              </a>
+            </li>
+            <li>
+              <a className=" m-1" color="link" href="/ownerForm">
+                New Owner
+              </a>
+            </li>
+            <li>
+              <a className=" m-1" color="link" href="/allHoldings">
+                View Land Holdings
+              </a>
+            </li>
+            <li>
+              <a className=" m-1" color="link" href="/landForm">
+                New Land Holding
+              </a>
+            </li>
+          </ul>
         </div>
-      </nav>
+      </MDBCollapse>
     </>
   );
-}
+};
 
 export default NavBar;
+
+// <nav className="navbar navbar-expand-lg navbar-light bg-light">
+//   <a className="navbar-brand" href="#">
+//     Navbar
+//   </a>
+//   <button
+//     className="navbar-toggler"
+//     type="button"
+//     data-toggle="collapse"
+//     data-target="#navbarSupportedContent"
+//     aria-controls="navbarSupportedContent"
+//     aria-expanded="false"
+//     aria-label="Toggle navigation"
+//   >
+//     <span className="navbar-toggler-icon"></span>
+//   </button>
+
+//   <div className="collapse navbar-collapse" id="navbarSupportedContent">
+//     <ul className="navbar-nav mr-auto">
+//       <li className="nav-item active">
+//         <a className="nav-link" href="/home">
+//           Home
+//         </a>
+//       </li>
+
+//       <li>
+//         <a className="nav-link" href="/home">
+//           New Owner
+//         </a>
+//       </li>
+//       <li>
+//         <a className="nav-link" href="/home">
+//           New Land Holding
+//         </a>
+//       </li>
+//       <li>
+//         <a className="nav-link" href="/home">
+//           View Owners
+//         </a>
+//       </li>
+//       <li>
+//         <a className="nav-link" href="/home">
+//           View Land Holdings
+//         </a>
+//       </li>
+//     </ul>
+//   </div>
+// </nav>
