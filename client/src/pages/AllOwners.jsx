@@ -1,7 +1,72 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import CardGroup from "react-bootstrap/CardGroup";
+import Card from "react-bootstrap/Card";
+
+var titleCase = function (str) {
+  var arr = str.split(" ");
+  var newArr = [];
+  for (var i = 0; i < arr.length; i++) {
+    newArr.push(arr[i].charAt(0).toUpperCase() + arr[i].slice(1));
+  }
+  return newArr.join(" ");
+};
+
+function OwnerCard(props) {
+  const { name, entityType, ownerType, address, numberOfHoldings } = props;
+
+  return (
+    <div className="owner-card h-100 d-flex flex-column ">
+      <div className="mb-auto">
+        <Card.Body className="m-1">
+          <Card.Title>Name: {titleCase(name)}</Card.Title>
+          <Card.Text>Entity Type: {titleCase(entityType)}</Card.Text>
+          <Card.Text>Owner Type: {titleCase(ownerType)}</Card.Text>
+          <Card.Text>Address: {titleCase(address)}</Card.Text>
+          <Card.Text>Number Of Holdings: {numberOfHoldings}</Card.Text>
+        </Card.Body>
+      </div>
+      <div className="text-muted">
+        <Card.Footer className="h-100 d-flex flex-column ">
+          <Button variant="info" className="m-1">
+            Edit
+          </Button>
+        </Card.Footer>
+      </div>
+    </div>
+  );
+}
 
 const AllOwners = () => {
-  return <div>AllOwners</div>;
+  const [owners, setOwners] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/owners")
+      .then((response) => response.json())
+      .then((data) => setOwners(data));
+  }, []);
+
+  return (
+    <div className="owners-list m-1">
+      <h2 className="fs-5 p-2 fw-normal">Viewing All Owners</h2>
+      <CardGroup>
+        {owners.map((owner) => (
+          <div className="col-md-6 col-lg-3 col-sm-12 p-1">
+            <Card className="h-100">
+              <OwnerCard
+                key={owner._id}
+                name={owner.name}
+                address={owner.address}
+                entityType={owner.entityType}
+                ownerType={owner.ownerType}
+                numberOfHoldings={owner.numberOfHoldings}
+              />
+            </Card>
+          </div>
+        ))}
+      </CardGroup>
+    </div>
+  );
 };
 
 export default AllOwners;

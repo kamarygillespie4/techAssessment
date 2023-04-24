@@ -14,7 +14,7 @@ const NavBar = () => {
     <>
       <MDBNavbar>
         <MDBContainer fluid>
-          <span>Phoenix Capital Group</span>
+          <span className="fs-4 fw-bold">Phoenix Capital Group</span>
           <MDBNavbarToggler
             className="ms-auto"
             type="button"

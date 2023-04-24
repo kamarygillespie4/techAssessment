@@ -17,6 +17,29 @@ const OwnerForm = (props) => {
     console.log(address);
     console.log(numberOfHoldings);
     //console.log(LandHoldings);
+    const formData = {
+      name,
+      entityType,
+      ownerType,
+      address,
+      numberOfHoldings,
+    };
+    fetch("/api/owners", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // do something with the response
+      })
+      .catch((error) => {
+        console.error(error);
+        // handle errors
+      });
   };
   return (
     <div className="">
