@@ -1,29 +1,18 @@
 const { Schema, model } = require("mongoose");
 
-// Schema to create useer model
-const userSchema = new Schema(
-  {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      //Must match a valid email address =
-      match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/],
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-  }
+const userSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
 
-  //schema settings
-  // {
-  //   toJSON: {
-  //     virtuals: true,
-  //   },
-  //   id: false,
-  // }
-);
+    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/],
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
 
 const User = model("User", userSchema);
 

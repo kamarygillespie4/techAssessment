@@ -1,17 +1,8 @@
-///api/users
-// ObjectId() method for converting string into an ObjectId for querying database
 const { ObjectId } = require("mongoose").Types;
 
 const { User } = require("../models");
 
 module.exports = {
-  //POST a new user:
-
-  // example data
-  //{
-  // "password": "admin",
-  ///// "email": "admin@gmail.com"
-  //}
   createUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
@@ -20,7 +11,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  //GET all users
+
   getUsers(req, res) {
     User.find()
       .then((users) => res.json(users))
@@ -36,6 +27,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+
   updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -49,8 +41,6 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-
-  //DELETE to  user by its id
 
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })

@@ -1,16 +1,14 @@
 const { ObjectId } = require("mongoose").Types;
 
-const { LandHolding, Owner } = require("../models");
+const { Owner } = require("../models");
 
 module.exports = {
-  //GET all owners
   getOwners(req, res) {
     Owner.find()
       .then((owners) => res.json(owners))
       .catch((err) => res.status(500).json(err));
   },
 
-  //GET a single owner by its _id and populated landholding data
   getSingleOwner(req, res) {
     Owner.findOne({ _id: req.params.ownerId })
       .select("-__v")
@@ -22,16 +20,6 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  //POST a new owner:
-
-  // TODO: example data
-  //{
-  // "name": "lernantino",
-  // "entiyType": "vhello"
-  // "ownerType": "gnyuj,muimk",
-  // "address": "mjmjmjm"
-  // "numberOfHoldings": 7,
-  //}
   createOwner(req, res) {
     Owner.create(req.body)
       .then((owner) => res.json(owner))
@@ -41,7 +29,6 @@ module.exports = {
       });
   },
 
-  //PUT to update an owner by its _id
   updateOwner(req, res) {
     Owner.findOneAndUpdate(
       { _id: req.params.ownerId },
@@ -56,54 +43,128 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  //Remove an owner's associated land holdings when deleted.
   deleteOwner(req, res) {
+    //find a thought whos ID matches the one passed in the request parameters and delete it
     Owner.findOneAndDelete({ _id: req.params.ownerId })
+      .then((owner) => {
+        if (!owner) {
+          //if the thought is not found, return the message 'No thought with this id!'
+          res.status(404).json({ message: "No thought with this id!" });
+        }
+        //if the thought was deleted, find the user with that thought and pull the thought from their thoughts array
+        // User.findOneAndUpdate(
+        //   { thoughts: req.params.thoughtId },
+        //   { $pull: { thoughts: req.params.thoughtId } },
+        //   { new: true }
+        // );
+      })
+      //message if successful
+      .then(() => res.json({ message: "owner deleted!" }))
+      //error handling
+      .catch((err) => res.status(500).json(err));
+  },
+
+  addLandHolding(req, res) {
+    Owner.findOneAndUpdate(
+      { _id: req.params.ownerId },
+      { $addToSet: { landHoldings: req.body } },
+      //change req.params.landHodingId to req.body?
+      { new: true, runValidators: true }
+    )
       .then((owner) =>
         !owner
-          ? res.status(404).json({ message: "No owner with that ID" })
-          : LandHolding.deleteMany({
-              _id: {
-                $in: owner.landHoldings,
-              },
-            })
-      )
-      .then(() =>
-        res.json({ message: "Owner and associated land holdings deleted!" })
+          ? res.status(404).json({ message: "No owner found with that ID :(" })
+          : res.json(owner)
       )
       .catch((err) => res.status(500).json(err));
   },
 
-  //POST to add a new land holding to a owners's  list
-  addLandHolding(req, res) {
-    Owner.findOneAndUpdate(
-      { _id: req.params.ownerId },
-      { $addToSet: { landHoldings: req.params.landHodingId } },
-      { new: true, runValidators: true }
-    )
-      .then((owner) => {
-        if (!owner) {
-          res.status(404).json({ message: "No owner with this id" });
-          return;
-        }
-        res.json(owner);
-      })
-      .catch((err) => res.json(err));
-  },
-
-  //Deleter to remove a  land holding from a owners's  list
   deleteLandHolding(req, res) {
-    Owner.findOneAndUpdate(
-      { _id: req.params.ownerId },
-      { $pull: { landHoldings: req.params.landHoldingId } },
+    const { ownerId, landHoldingId } = req.params;
+
+    Owner.findByIdAndUpdate(
+      ownerId,
+      {
+        $pull: { landHoldings: { _id: landHoldingId } },
+      },
       { new: true }
     )
       .then((owner) => {
         if (!owner) {
-          return res.status(404).json({ message: "No owner with this id!" });
+          return res
+            .status(404)
+            .json({ message: "No owner found with that ID :(" });
         }
         res.json(owner);
       })
-      .catch((err) => res.json(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+
+  getLandHoldings(req, res) {
+    Owner.find()
+      .exec()
+      .then((owners) => {
+        const landHoldings = owners.reduce(
+          (acc, owner) => acc.concat(owner.landHoldings),
+          []
+        );
+        return landHoldings.length === 0
+          ? res.status(404).json({ message: "No land holdings found :(" })
+          : res.json(landHoldings);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+
+  updateLandHolding(req, res) {
+    const { ownerId, landHoldingId } = req.params;
+    const {
+      name,
+      owner,
+      legalEntity,
+      netAcres,
+      ownerRoyalty,
+      sectionName,
+      section,
+      township,
+      range,
+      titleSource,
+    } = req.body;
+
+    Owner.findOneAndUpdate(
+      { _id: ownerId, "landHoldings._id": landHoldingId },
+      {
+        $set: {
+          "landHoldings.$.name": name,
+          "landHoldings.$.owner": owner,
+          "landHoldings.$.legalEntity": legalEntity,
+          "landHoldings.$.netAcres": netAcres,
+          "landHoldings.$.ownerRoyalty": ownerRoyalty,
+          "landHoldings.$.sectionName": sectionName,
+          "landHoldings.$.section": section,
+          "landHoldings.$.township": township,
+          "landHoldings.$.range": range,
+          "landHoldings.$.titleSource": titleSource,
+        },
+      },
+      { new: true }
+    )
+      .then((owner) => {
+        if (!owner) {
+          return res
+            .status(404)
+            .json({ message: "No owner found with that ID :(" });
+        }
+        res.json(owner);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
 };

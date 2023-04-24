@@ -1,8 +1,68 @@
-const { Schema, model } = require("mongoose");
-//require thought model
-const landHoldingSchema = require("./landHolding");
+const { Schema, model, Types } = require("mongoose");
 
-// Schema to create owner model
+const landHoldingSchema = new Schema(
+  {
+    // landHoldingId: {
+    //   // Mongoose's ObjectId data type
+    //   type: Schema.Types.ObjectId,
+    //   // Default value is set to a new ObjectId
+    //   default: () => new Types.ObjectId(),
+    // },
+    name: {
+      type: String,
+      required: true,
+    },
+    owner: {
+      type: String,
+      required: true,
+    },
+    legalEntity: {
+      type: String,
+      required: true,
+    },
+    netAcres: {
+      type: String,
+      required: true,
+    },
+    ownerRoyalty: {
+      type: Number,
+      required: true,
+    },
+    sectionName: {
+      type: String,
+      required: true,
+    },
+    section: {
+      type: Number,
+      required: true,
+      minlength: 3,
+      maxlength: 3,
+    },
+    township: {
+      type: String,
+      required: true,
+
+      match: [/^\d{3}[NS]$/],
+    },
+    range: {
+      type: String,
+      required: true,
+
+      match: [/^\d{3}[EW]$/],
+    },
+    titleSource: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
+);
+
 const ownerSchema = new Schema(
   {
     name: {
@@ -25,18 +85,12 @@ const ownerSchema = new Schema(
       type: Number,
       required: true,
     },
-    //Array of _id values referencing the Land Holding model
-    landHoldings: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "LandHolding",
-      },
-    ],
+    landHoldings: [landHoldingSchema],
   },
   {
     toJSON: {
       virtuals: true,
-      // getters: true,
+      getters: true,
     },
     id: false,
   }
@@ -44,7 +98,6 @@ const ownerSchema = new Schema(
 
 ownerSchema.virtual("landHoldingCount").get(function () {
   return this.landHoldings.length;
-  //the length will be the number of objects in the friends array. The objects are land holdings
 });
 
 const Owner = model("Owner", ownerSchema);

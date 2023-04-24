@@ -7,20 +7,33 @@ const {
   deleteOwner,
   addLandHolding,
   deleteLandHolding,
-} = require("../../controllers/ownerControllers");
+  getLandHoldings,
+  updateLandHolding,
+} = require("../../controllers/ownerControllers.js");
 
-// /api/owners
+//just /owners
 router.route("/").get(getOwners).post(createOwner);
 
-// /api/owners/:ownerId
+router.get("/landHoldings", getLandHoldings);
+
+//--- /owners/:ownerId
 router
   .route("/:ownerId")
   .get(getSingleOwner)
   .put(updateOwner)
-  .delete(deleteOwner);
+  .delete(deleteOwner)
+  .get(getLandHoldings);
+
+//////router.route("/landHoldings").get(getLandHoldings);
+
+router
+  .route("/:ownerId/landHoldings")
+  .post(addLandHolding)
+  .get(getLandHoldings);
+
 router
   .route("/:ownerId/landHoldings/:landHoldingId")
-  .post(addLandHolding)
-  .delete(deleteLandHolding);
+  .delete(deleteLandHolding)
+  .put(updateLandHolding);
 
 module.exports = router;
