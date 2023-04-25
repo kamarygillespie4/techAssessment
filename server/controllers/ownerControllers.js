@@ -81,26 +81,38 @@ module.exports = {
 
   deleteLandHolding(req, res) {
     const { ownerId, landHoldingId } = req.params;
-
-    Owner.findByIdAndUpdate(
-      ownerId,
-      {
-        $pull: { landHoldings: { _id: landHoldingId } },
-      },
+    Owner.findOneAndUpdate(
+      { _id: ownerId, "landHoldings._id": landHoldingId },
+      { $pull: { landHoldings: { _id: req.params.landHoldingId } } },
       { new: true }
     )
       .then((owner) => {
         if (!owner) {
           return res
             .status(404)
-            .json({ message: "No owner found with that ID :(" });
+            .json({ message: "No landholding found with that ID :(" });
         }
-        res.json(owner);
+        return res.json(owner);
       })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
+      .catch((err) => res.status(500).json(err));
+
+    // Owner.findOneAndUpdate(
+    //   { _id: ownerId, "landHoldings._id": landHoldingId },
+
+    //   { new: true }
+    // )
+    //   .then((owner) => {
+    //     if (!owner) {
+    //       return res
+    //         .status(404)
+    //         .json({ message: "No owner found with that ID :(" });
+    //     }
+    //     res.json(owner);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     res.status(500).json(err);
+    //   });
   },
 
   getLandHoldings(req, res) {

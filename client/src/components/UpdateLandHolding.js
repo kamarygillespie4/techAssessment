@@ -1,24 +1,32 @@
 import React, { useState, useEffect } from "react";
 //import LandHolding from "../../../server/models/landHolding";
 import { useNavigate, useParams } from "react-router-dom";
+import { Card, ListGroup, Button, Col, Row } from "react-bootstrap";
 
 const styles = {
   question: {
     display: "flex",
     flexDirection: "column",
     margin: "1%",
+    fontSize: "small",
   },
   label: {
+    // fontWeight: "normal",
+  },
+  data: {
     fontWeight: "normal",
+    fontSize: "small",
   },
   button: {
     float: "left",
     background: "blue",
     color: "white",
-
+    width: "100%",
     borderRadius: "5px",
     cursor: "pointer",
-    marginRight: "20px",
+    border: "none",
+    marginTop: "2%",
+    padding: "3%",
   },
   container: {
     border: "1px  solid lightGray ",
@@ -28,15 +36,12 @@ const styles = {
   form: {
     padding: "5%",
   },
+  header: {
+    marginBottom: "1%",
+    padding: "2%",
+  },
 };
-var titleCase = function (str) {
-  var arr = str.split(" ");
-  var newArr = [];
-  for (var i = 0; i < arr.length; i++) {
-    newArr.push(arr[i].charAt(0).toUpperCase() + arr[i].slice(1));
-  }
-  return newArr.join(" ");
-};
+
 const UpdateLandHolding = (props) => {
   const { ownerId, landHoldingId } = useParams();
   const navigate = useNavigate();
@@ -113,107 +118,146 @@ const UpdateLandHolding = (props) => {
   };
 
   return (
-    <div className="">
-      <h2>Create Land Holding</h2>
-      <form className="landHoldingForm" onSubmit={handleSubmit}>
-        <label htmlFor="legalEntity">Legal Entity</label>
-        <input
-          value={legalEntity}
-          onChange={(e) => setLegalEntity(e.target.value)}
-          type="text"
-          placeholder="Legal entity"
-          id="legalEntity"
-          name="legalEntity"
-        />
-        <label htmlFor="netAcres">Net Mineral Acres</label>
-        <input
-          value={netAcres}
-          onChange={(e) => setNetAcres(e.target.value)}
-          type="text"
-          placeholder="Net Mineral Acres"
-          id="netAcres"
-          name="netAcres"
-        />
-        <label htmlFor="ownerRoyalty">Mineral Owner Royalty (%)</label>
-        <input
-          value={ownerRoyalty}
-          onChange={(e) => setOwnerRoyalty(e.target.value)}
-          type="text"
-          placeholder="Mineral Owner Royalty"
-          id="ownerRoyalty"
-          name="ownerRoyalty"
-        />
-        <label htmlFor="section">Section</label>
-        <input
-          value={section}
-          onChange={(e) => setSection(e.target.value)}
-          type="text"
-          placeholder="Section"
-          id="section"
-          name="section"
-        />
-        <label htmlFor="township">Township</label>
-        <input
-          value={township}
-          onChange={(e) => setTownship(e.target.value)}
-          type="text"
-          placeholder="Township"
-          id="township"
-          name="township"
-        />
-        <label htmlFor="range">Range</label>
-        <input
-          value={range}
-          onChange={(e) => setRange(e.target.value)}
-          type="text"
-          placeholder="Range"
-          id="range"
-          name="range"
-        />
-        <label htmlFor="titleSource">Title Source</label>
-        <div>
-          <input
-            type="radio"
-            name="titleSource"
-            value="Class A"
-            id="classA"
-            onChange={(e) => setTitleSource(e.target.value)}
-          />
-          <label htmlFor="contactChoice1">Class A</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="titleSource"
-            value="Class B"
-            id="classb"
-            onChange={(e) => setTitleSource(e.target.value)}
-          />
-          <label htmlFor="contactChoice1">Class B</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="titleSource"
-            value="Class C"
-            id="classC"
-            onChange={(e) => setTitleSource(e.target.value)}
-          />
-          <label htmlFor="contactChoice1">Class C</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="titleSource"
-            value="Class D"
-            id="classD"
-            onChange={(e) => setTitleSource(e.target.value)}
-          />
-          <label htmlFor="contactChoice1">Class D</label>
-        </div>
-
-        <button type="submit">Create</button>
-      </form>
+    <div>
+      <div style={styles.container}>
+        <form
+          className="landHoldingForm"
+          style={styles.form}
+          onSubmit={handleSubmit}
+        >
+          <h2 className="fs-4 fw-normal ">Update Land Holding</h2>
+          <Row>
+            <Col>
+              <div style={styles.question}>
+                <label htmlFor="legalEntity">Legal Entity</label>
+                <input
+                  value={legalEntity}
+                  onChange={(e) => setLegalEntity(e.target.value)}
+                  type="text"
+                  placeholder="Legal entity"
+                  id="legalEntity"
+                  name="legalEntity"
+                />
+              </div>
+              <div style={styles.question}>
+                <label htmlFor="netAcres" style={styles.label}>
+                  Net Mineral Acres
+                </label>
+                <input
+                  value={netAcres}
+                  onChange={(e) => setNetAcres(e.target.value)}
+                  type="text"
+                  placeholder="Net Mineral Acres"
+                  id="netAcres"
+                  name="netAcres"
+                />
+              </div>
+              <div style={styles.question}>
+                <label htmlFor="ownerRoyalty" style={styles.label}>
+                  Mineral Owner Royalty (%)
+                </label>
+                <input
+                  value={ownerRoyalty}
+                  onChange={(e) => setOwnerRoyalty(e.target.value)}
+                  type="text"
+                  placeholder="Mineral Owner Royalty"
+                  id="ownerRoyalty"
+                  name="ownerRoyalty"
+                />
+              </div>
+              <div style={styles.question}>
+                <label htmlFor="section" style={styles.label}>
+                  Section
+                </label>
+                <input
+                  value={section}
+                  onChange={(e) => setSection(e.target.value)}
+                  type="text"
+                  placeholder="Section"
+                  id="section"
+                  name="section"
+                />
+              </div>
+            </Col>
+            <Col>
+              <div style={styles.question}>
+                <label htmlFor="township" style={styles.label}>
+                  Township
+                </label>
+                <input
+                  value={township}
+                  onChange={(e) => setTownship(e.target.value)}
+                  type="text"
+                  placeholder="Township"
+                  id="township"
+                  name="township"
+                />
+              </div>
+              <div style={styles.question}>
+                <label htmlFor="range" style={styles.label}>
+                  Range
+                </label>
+                <input
+                  value={range}
+                  onChange={(e) => setRange(e.target.value)}
+                  type="text"
+                  placeholder="Range"
+                  id="range"
+                  name="range"
+                />
+              </div>
+              <div style={styles.question}>
+                <label htmlFor="titleSource" style={styles.label}>
+                  Title Source
+                </label>
+                <div>
+                  <input
+                    type="radio"
+                    name="titleSource"
+                    value="Class A"
+                    id="classA"
+                    onChange={(e) => setTitleSource(e.target.value)}
+                  />
+                  <label htmlFor="classA">Class A</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="titleSource"
+                    value="Class B"
+                    id="classB"
+                    onChange={(e) => setTitleSource(e.target.value)}
+                  />
+                  <label htmlFor="classB">Class B</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="titleSource"
+                    value="Class C"
+                    id="classC"
+                    onChange={(e) => setTitleSource(e.target.value)}
+                  />
+                  <label htmlFor="classC">Class C</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    name="titleSource"
+                    value="Class D"
+                    id="classD"
+                    onChange={(e) => setTitleSource(e.target.value)}
+                  />
+                  <label htmlFor="classD">Class D</label>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <button type="submit" style={styles.button}>
+            Update
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

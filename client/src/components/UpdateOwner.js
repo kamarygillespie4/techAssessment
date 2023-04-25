@@ -18,7 +18,8 @@ const styles = {
 
     borderRadius: "5px",
     cursor: "pointer",
-    marginRight: "20px",
+    margin: "2%",
+    padding: "3%",
   },
   container: {
     border: "1px  solid lightGray ",
@@ -29,14 +30,7 @@ const styles = {
     padding: "5%",
   },
 };
-var titleCase = function (str) {
-  var arr = str.split(" ");
-  var newArr = [];
-  for (var i = 0; i < arr.length; i++) {
-    newArr.push(arr[i].charAt(0).toUpperCase() + arr[i].slice(1));
-  }
-  return newArr.join(" ");
-};
+
 const UpdateOwner = (props) => {
   const { ownerId } = useParams();
   const navigate = useNavigate();
