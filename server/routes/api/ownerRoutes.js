@@ -5,7 +5,7 @@ const {
   createOwner,
   updateOwner,
   deleteOwner,
-  addLandHolding,
+  createLandHolding,
   deleteLandHolding,
   getLandHoldings,
   updateLandHolding,
@@ -29,7 +29,7 @@ router
 
 router
   .route("/:ownerId/landHoldings")
-  .post(addLandHolding)
+  .post(createLandHolding)
   .get(getLandHoldings);
 
 router

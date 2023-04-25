@@ -30,6 +30,9 @@ const styles = {
   },
 };
 var titleCase = function (str) {
+  if (!str) {
+    return "";
+  }
   var arr = str.split(" ");
   var newArr = [];
   for (var i = 0; i < arr.length; i++) {

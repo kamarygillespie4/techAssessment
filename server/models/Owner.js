@@ -12,10 +12,10 @@ const landHoldingSchema = new Schema(
       type: String,
       required: true,
     },
-    owner: {
-      type: String,
-      required: true,
-    },
+    // owner: {
+    //   type: String,
+    //   required: true,
+    // },
     legalEntity: {
       type: String,
       required: true,

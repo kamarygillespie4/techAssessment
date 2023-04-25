@@ -203,7 +203,7 @@ const UpdateOwner = (props) => {
           />
         </div>
 
-        <button href="/owners/:ownerId" style={styles.button}>
+        <button onClick={handleSubmit} style={styles.button}>
           Update
         </button>
       </form>

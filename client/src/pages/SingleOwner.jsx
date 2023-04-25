@@ -6,12 +6,11 @@ import ProfileCard from "../components/ProfileCard";
 import OwnerLandHoldings from "../components/OwnerLandHoldings";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-// const styles = {
-//   container: {
-//     border: "1px  solid lightGray ",
-//     borderRadius: "10px",
-//   },
-// };
+const styles = {
+  container: {
+    margin: "3%",
+  },
+};
 
 const SingleOwner = () => {
   const { ownerId } = useParams();
@@ -35,7 +34,7 @@ const SingleOwner = () => {
   }
 
   return (
-    <div>
+    <div style={styles.container}>
       <Row>
         <Col lg={4}>
           <ProfileCard />

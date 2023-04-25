@@ -64,18 +64,26 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 
-  addLandHolding(req, res) {
-    Owner.findOneAndUpdate(
-      { _id: req.params.ownerId },
-      { $addToSet: { landHoldings: req.body } },
-      //change req.params.landHodingId to req.body?
-      { new: true, runValidators: true }
-    )
-      .then((owner) =>
-        !owner
-          ? res.status(404).json({ message: "No owner found with that ID :(" })
-          : res.json(owner)
-      )
+  createLandHolding(req, res) {
+    const ownerId = req.params.ownerId;
+    Owner.findOne({ _id: ownerId })
+      .then((owner) => {
+        if (!owner) {
+          return res.status(404).json({ message: "No owner with that ID" });
+        }
+
+        const newLandHolding = req.body;
+
+        owner.landHoldings.push(newLandHolding);
+
+        return owner
+          .save()
+          .then(() => res.json(newLandHolding))
+          .catch((err) => {
+            console.log(err);
+            return res.status(500).json(err);
+          });
+      })
       .catch((err) => res.status(500).json(err));
   },
 

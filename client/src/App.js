@@ -21,7 +21,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        <Route path="/landForm" element={<LandForm />} />
+        <Route path="/owners/:ownerId/landHoldings" element={<LandForm />} />
         <Route path="/ownerForm" element={<OwnerForm />} />
         <Route path="/allHoldings" element={<AllHoldings />} />
         <Route path="/owners" element={<AllOwners />} />
@@ -29,10 +29,6 @@ function App() {
         <Route
           path="/owners/:ownerId/landHoldings/:landHoldingId"
           element={<SingleLandHolding />}
-        />
-        <Route
-          path="/owners/:ownerId/landHoldings/"
-          element={<SingleOwner />}
         />
       </Routes>
     </Router>
