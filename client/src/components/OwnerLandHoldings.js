@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Card, ListGroup, Button } from "react-bootstrap";
+import { Card, ListGroup, Button, Col, Row } from "react-bootstrap";
 
 const styles = {
   button: {
@@ -15,10 +15,15 @@ const styles = {
     border: "1px  solid lightGray ",
     borderRadius: "10px",
     margin: "1%",
-    padding: "5%",
+    padding: "2%",
+  },
+  header: {
+    marginBottom: "1%",
+    padding: "1%",
   },
   form: {},
 };
+
 var titleCase = function (str) {
   if (!str) return "";
 
@@ -31,25 +36,38 @@ var titleCase = function (str) {
 
   return newArr.join(" ");
 };
+
 function LandHoldingCard(props) {
   const { landHolding } = props;
 
   return (
-    <div className="owner-card h-100 d-flex flex-column ">
-      <div className="mb-auto">
+    <div className="owner-card">
+      <div className="">
         <Card.Body className="m-1">
-          <Card.Title>{titleCase(landHolding.owner)}</Card.Title>
-          <Card.Text>
-            Legal Entity: {titleCase(landHolding.legalEntity)}
-          </Card.Text>
-          <Card.Text>Net Acres: {landHolding.netAcres}</Card.Text>
-          <Card.Text>Address: {titleCase(landHolding.entityType)}</Card.Text>
-          <Card.Text>Owner Royalty: {landHolding.ownerRoyalty}</Card.Text>
-          <Card.Text>Section: {landHolding.section}</Card.Text>
-          <Card.Text>Section Name: {landHolding.sectionName}</Card.Text>
-          <Card.Text>Township: {landHolding.township}</Card.Text>
-          <Card.Text>Range: {landHolding.range}</Card.Text>
-          <Card.Text>Title Source: {landHolding.titleSource}</Card.Text>
+          <Card.Title className="mb-3">
+            {titleCase(landHolding.sectionName)}
+          </Card.Title>
+          <Row className="mb-3 fs-6">
+            <Col lg={4}>
+              <Card.Text>
+                Legal Entity: {titleCase(landHolding.legalEntity)}
+              </Card.Text>
+              <Card.Text>Net Acres: {landHolding.netAcres}</Card.Text>
+              <Card.Text>
+                Address: {titleCase(landHolding.entityType)}
+              </Card.Text>
+            </Col>
+            <Col lg={4}>
+              <Card.Text>Owner Royalty: {landHolding.ownerRoyalty}</Card.Text>
+              <Card.Text>Section: {landHolding.section}</Card.Text>
+              <Card.Text>Section Name: {landHolding.sectionName}</Card.Text>
+            </Col>
+            <Col lg={4}>
+              <Card.Text>Township: {landHolding.township}</Card.Text>
+              <Card.Text>Range: {landHolding.range}</Card.Text>
+              <Card.Text>Title Source: {landHolding.titleSource}</Card.Text>
+            </Col>
+          </Row>
         </Card.Body>
       </div>
       <div className="text-muted">
@@ -65,17 +83,15 @@ function LandHoldingCard(props) {
 
 const OwnerLandHoldings = (props) => {
   const { ownerId } = useParams();
-
-  const [owner, setOwner] = useState("");
-  const [landHoldings, setLandHoldings] = useState([]);
+  const [owner, setOwner] = useState(null);
+  const [landHoldings, setLandHoldings] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/owners/${ownerId}/landHoldings`)
+    fetch(`/api/owners/${ownerId}`)
       .then((response) => response.json())
-      .then((landHolding) => {
-        console.log(landHolding);
-
-        setLandHoldings(landHolding);
+      .then((owner) => {
+        setOwner(owner);
+        setLandHoldings(owner.landHoldings);
       })
       .catch((error) => {
         console.error(error);
@@ -83,15 +99,22 @@ const OwnerLandHoldings = (props) => {
   }, [ownerId]);
 
   return (
-    <div style={styles.container}>
-      <h2 className="fs-4 fw-normal mb-3">Land Holdings</h2>
-      <div className="row">
-        {landHoldings &&
-          landHoldings.map((landHolding) => (
-            <div className="col-lg-4 mb-3">
-              <LandHoldingCard landHolding={landHolding} owner={owner} />
+    <div>
+      <h2 className="fs-4 fw-normal " style={styles.header}>
+        Land Holdings
+      </h2>
+      <div>
+        {owner && owner.landHoldings.length > 0 ? (
+          owner.landHoldings.map((landHolding) => (
+            <div style={styles.container}>
+              <LandHoldingCard landHolding={landHolding} />
             </div>
-          ))}
+          ))
+        ) : (
+          <div style={styles.container}>
+            <p>This owner has no land holdings</p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import AllHoldings from "./pages/AllHoldings";
 import AllOwners from "./pages/AllOwners";
 import SingleOwner from "./pages/SingleOwner";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/NavBar";
 
 function App() {
   return (
@@ -25,6 +25,14 @@ function App() {
         <Route path="/allHoldings" element={<AllHoldings />} />
         <Route path="/allOwners" element={<AllOwners />} />
         <Route path="/owners/:ownerId" element={<SingleOwner />} />
+        <Route
+          path="/owners/:ownerId/landHoldings/:landHoldingId"
+          element={<LandForm />}
+        />
+        <Route
+          path="/owners/:ownerId/landHoldings/"
+          element={<SingleOwner />}
+        />
       </Routes>
     </Router>
   );
