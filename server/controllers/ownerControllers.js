@@ -167,4 +167,27 @@ module.exports = {
         res.status(500).json(err);
       });
   },
+  getSingleLandHolding(req, res) {
+    const ownerId = req.params.ownerId;
+    const landHoldingId = req.params.landHoldingId;
+
+    Owner.findById(ownerId, (err, owner) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
+      if (!owner) {
+        return res.status(404).json({ message: "Owner not found" });
+      }
+
+      const landHolding = owner.landHoldings.find(
+        (landHolding) => landHolding._id.toString() === landHoldingId
+      );
+
+      if (!landHolding) {
+        return res.status(404).json({ message: "Land holding not found" });
+      }
+
+      res.json(landHolding);
+    });
+  },
 };

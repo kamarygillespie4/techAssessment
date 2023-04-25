@@ -33,7 +33,7 @@ const NavBar = () => {
         <div className="flex flex-row bg-light shadow-3 p-4">
           <ul>
             <li>
-              <a className=" m-1" color="link" href="/allOwners">
+              <a className=" m-1" color="link" href="/owners">
                 View Owners
               </a>
             </li>

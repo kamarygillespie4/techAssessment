@@ -9,6 +9,7 @@ const {
   deleteLandHolding,
   getLandHoldings,
   updateLandHolding,
+  getSingleLandHolding,
 } = require("../../controllers/ownerControllers.js");
 
 //just /owners
@@ -34,6 +35,7 @@ router
 router
   .route("/:ownerId/landHoldings/:landHoldingId")
   .delete(deleteLandHolding)
-  .put(updateLandHolding);
+  .put(updateLandHolding)
+  .get(getSingleLandHolding);
 
 module.exports = router;

@@ -38,7 +38,12 @@ var titleCase = function (str) {
 };
 
 function LandHoldingCard(props) {
-  const { landHolding } = props;
+  const { landHolding, ownerId } = props;
+  const navigate = useNavigate();
+
+  const handleViewClick = () => {
+    navigate(`/owners/${ownerId}/landHoldings/${props.landHoldingId}`);
+  };
 
   return (
     <div className="owner-card">
@@ -72,7 +77,7 @@ function LandHoldingCard(props) {
       </div>
       <div className="text-muted">
         <Card.Footer className="h-100 d-flex flex-column ">
-          <Button variant="dark" className="">
+          <Button variant="dark" className="" onClick={handleViewClick}>
             View
           </Button>
         </Card.Footer>
@@ -107,7 +112,11 @@ const OwnerLandHoldings = (props) => {
         {owner && owner.landHoldings.length > 0 ? (
           owner.landHoldings.map((landHolding) => (
             <div style={styles.container}>
-              <LandHoldingCard landHolding={landHolding} />
+              <LandHoldingCard
+                landHolding={landHolding}
+                ownerId={ownerId}
+                landHoldingId={landHolding._id}
+              />
             </div>
           ))
         ) : (

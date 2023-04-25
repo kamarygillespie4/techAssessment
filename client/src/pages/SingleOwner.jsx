@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
 import UpdateOwner from "../components/UpdateOwner";
 import ProfileCard from "../components/ProfileCard";
@@ -40,6 +40,7 @@ const SingleOwner = () => {
         <Col lg={4}>
           <ProfileCard />
           <UpdateOwner />
+          <Button>Delete</Button>
         </Col>
         <Col lg={8}>
           <OwnerLandHoldings />

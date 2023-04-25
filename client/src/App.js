@@ -9,6 +9,7 @@ import OwnerForm from "./pages/OwnerForm";
 import AllHoldings from "./pages/AllHoldings";
 import AllOwners from "./pages/AllOwners";
 import SingleOwner from "./pages/SingleOwner";
+import SingleLandHolding from "./pages/SingleLandHolding";
 
 import Navbar from "./components/NavBar";
 
@@ -23,11 +24,11 @@ function App() {
         <Route path="/landForm" element={<LandForm />} />
         <Route path="/ownerForm" element={<OwnerForm />} />
         <Route path="/allHoldings" element={<AllHoldings />} />
-        <Route path="/allOwners" element={<AllOwners />} />
+        <Route path="/owners" element={<AllOwners />} />
         <Route path="/owners/:ownerId" element={<SingleOwner />} />
         <Route
           path="/owners/:ownerId/landHoldings/:landHoldingId"
-          element={<LandForm />}
+          element={<SingleLandHolding />}
         />
         <Route
           path="/owners/:ownerId/landHoldings/"
