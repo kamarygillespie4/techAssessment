@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import CardGroup from "react-bootstrap/CardGroup";
-import Card from "react-bootstrap/Card";
+import { Button, CardGroup, Card } from "react-bootstrap";
 
 var titleCase = function (str) {
   var arr = str.split(" ");
@@ -19,7 +17,7 @@ function OwnerCard(props) {
     <div className="owner-card h-100 d-flex flex-column ">
       <div className="mb-auto">
         <Card.Body className="m-1">
-          <Card.Title>Name: {titleCase(name)}</Card.Title>
+          <Card.Title>{titleCase(name)}</Card.Title>
           <Card.Text>Entity Type: {titleCase(entityType)}</Card.Text>
           <Card.Text>Owner Type: {titleCase(ownerType)}</Card.Text>
           <Card.Text>Address: {titleCase(address)}</Card.Text>
@@ -28,8 +26,8 @@ function OwnerCard(props) {
       </div>
       <div className="text-muted">
         <Card.Footer className="h-100 d-flex flex-column ">
-          <Button variant="info" className="m-1">
-            Edit
+          <Button variant="dark" className="">
+            View Owner
           </Button>
         </Card.Footer>
       </div>

@@ -25,6 +25,35 @@ const LandForm = (props) => {
     console.log(titleSource);
     console.log(sectionName);
     console.log(name);
+
+    const formData = {
+      owner,
+      legalEntity,
+      netAcres,
+      ownerRoyalty,
+      section,
+      township,
+      range,
+      titleSource,
+      sectionName,
+      name,
+    };
+    fetch("/api/owners/:ownerId/landHoldings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // do something with the response
+      })
+      .catch((error) => {
+        console.error(error);
+        // handle errors
+      });
   };
   return (
     <div className="">

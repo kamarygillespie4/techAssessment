@@ -83,7 +83,6 @@ const ownerSchema = new Schema(
     },
     numberOfHoldings: {
       type: Number,
-      required: true,
     },
     landHoldings: [landHoldingSchema],
   },

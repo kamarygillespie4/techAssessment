@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //import LandHolding from "../../../server/models/landHolding";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const styles = {
   question: {
@@ -20,18 +20,46 @@ const styles = {
     cursor: "pointer",
     marginRight: "20px",
   },
+  container: {
+    border: "1px  solid lightGray ",
+    borderRadius: "10px",
+    margin: "2%",
+  },
+  form: {
+    padding: "5%",
+  },
 };
-
-const OwnerForm = (props) => {
+var titleCase = function (str) {
+  var arr = str.split(" ");
+  var newArr = [];
+  for (var i = 0; i < arr.length; i++) {
+    newArr.push(arr[i].charAt(0).toUpperCase() + arr[i].slice(1));
+  }
+  return newArr.join(" ");
+};
+const UpdateOwner = (props) => {
+  const { ownerId } = useParams();
   const navigate = useNavigate();
-
   const [name, setName] = useState("");
   const [entityType, setEntityType] = useState("");
   const [ownerType, setOwnerType] = useState("");
   const [address, setAddress] = useState("");
 
+  useEffect(() => {
+    fetch(`/api/owners/${ownerId}`)
+      .then((response) => response.json())
+      .then((owner) => {
+        setName(owner.name);
+        setEntityType(owner.entityType);
+        setOwnerType(owner.ownerType);
+        setAddress(owner.address);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [ownerId]);
+
   const handleSubmit = (e) => {
-    e.preventDefault();
     console.log(name);
     console.log(entityType);
     console.log(ownerType);
@@ -43,8 +71,8 @@ const OwnerForm = (props) => {
       ownerType,
       address,
     };
-    fetch("/api/owners", {
-      method: "POST",
+    fetch(`/api/owners/${ownerId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -61,9 +89,9 @@ const OwnerForm = (props) => {
   };
 
   return (
-    <div style={styles.form}>
-      <form className="ownerForm" onSubmit={handleSubmit}>
-        <h2 className="fs-4 fw-normal">Create Owner</h2>
+    <div style={styles.container}>
+      <form className="ownerForm" style={styles.form} onSubmit={handleSubmit}>
+        <h2 className="fs-4 fw-normal ">Update Owner Profile</h2>
         <div style={styles.question}>
           <label htmlFor="name" style={styles.label}>
             Enter Owner Name:
@@ -182,11 +210,11 @@ const OwnerForm = (props) => {
         </div>
 
         <button href="/owners/:ownerId" style={styles.button}>
-          Create
+          Update
         </button>
       </form>
     </div>
   );
 };
 
-export default OwnerForm;
+export default UpdateOwner;
