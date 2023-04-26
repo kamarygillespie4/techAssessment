@@ -19,10 +19,25 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-
   createOwner(req, res) {
-    Owner.create(req.body)
-      .then((owner) => res.json(owner))
+    Owner.findOne({ name: req.body.name, address: req.body.address })
+      .then((existingOwner) => {
+        if (existingOwner) {
+          // An owner already exists with the same name and address
+          return res.status(409).json({
+            message: "An owner with the same name and address already exists",
+            owner: existingOwner,
+          });
+        } else {
+          // Create a new owner
+          Owner.create(req.body)
+            .then((owner) => res.json(owner))
+            .catch((err) => {
+              console.log(err);
+              return res.status(500).json(err);
+            });
+        }
+      })
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);

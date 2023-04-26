@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-//import LandHolding from "../../../server/models/landHolding";
 import { useNavigate } from "react-router-dom";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Alert } from "react-bootstrap";
 
 const styles = {
   question: {
@@ -44,6 +43,7 @@ const OwnerForm = (props) => {
   const [entityType, setEntityType] = useState("");
   const [ownerType, setOwnerType] = useState("");
   const [address, setAddress] = useState("");
+  const [error, setError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,6 +58,7 @@ const OwnerForm = (props) => {
       ownerType,
       address,
     };
+
     fetch("/api/owners", {
       method: "POST",
       headers: {
@@ -65,16 +66,31 @@ const OwnerForm = (props) => {
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 409) {
+          // An owner already exists with the same name and address
+          return response.json().then((data) => {
+            window.alert(data.message);
+          });
+        } else if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(
+            "There is already an owner with that same name and address."
+          );
+        }
+      })
       .then((owner) => {
         console.log(owner);
-        navigate(`/owners/${owner._id}`);
+        if (owner) {
+          navigate(`/owners/${owner._id}`);
+        }
       })
       .catch((error) => {
         console.error(error);
+        window.alert(error.message);
       });
   };
-
   return (
     <div style={styles.container}>
       <div style={styles.form}>
