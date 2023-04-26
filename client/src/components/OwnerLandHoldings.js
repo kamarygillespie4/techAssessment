@@ -6,16 +6,19 @@ import LandForm from "./../pages/LandForm";
 const styles = {
   button: {
     float: "left",
-    background: "blue",
-    color: "white",
+    // background: "#d9d9d9",
+    // color: "black",
+    width: "100%",
     borderRadius: "5px",
     cursor: "pointer",
-    marginRight: "20px",
+    border: "none",
+    marginTop: "2%",
+    //padding: "2%",
   },
   container: {
     border: "1px  solid lightGray ",
     borderRadius: "10px",
-    margin: "1%",
+    marginTop: "1%",
     padding: "2%",
   },
   header: {
@@ -111,14 +114,16 @@ const OwnerLandHoldings = (props) => {
     <div>
       <Container>
         <Row className="justify-content-between align-items-center">
-          <Col lg={9}>
-            <h2 className="fs-4 fw-normal" style={styles.header}>
-              Land Holdings
-            </h2>
-          </Col>
-          <Col lg={3}>
-            <Button onClick={handleAddLandHolding}>Add Land Holding</Button>
-          </Col>
+          <h2 className="fs-4 fw-normal" style={styles.header}>
+            Land Holdings
+          </h2>
+          <Button
+            variant="dark"
+            onClick={handleAddLandHolding}
+            style={styles.button}
+          >
+            Add Land Holding
+          </Button>
         </Row>
       </Container>
       <div>

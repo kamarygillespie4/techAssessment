@@ -57,6 +57,21 @@ const UpdateLandHolding = (props) => {
 
   const sectionName = section + "-" + township + "-" + range;
   const name = sectionName + "-" + legalEntity;
+  const validateInput = () => {
+    const errors = [];
+
+    if (!section.match(/^\d{3}$/)) {
+      errors.push("Section must be a 3-digit number.");
+    }
+    if (!township.match(/^\d{3}[NS]$/)) {
+      errors.push('Township must be a 3-digit number followed by "N" or "S".');
+    }
+    if (!range.match(/^\d{3}[EW]$/)) {
+      errors.push('Range must be a 3-digit number followed by "E" or "W".');
+    }
+
+    return errors;
+  };
 
   useEffect(() => {
     fetch(`/api/owners/${ownerId}/landHoldings/${landHoldingId}`)
@@ -86,6 +101,11 @@ const UpdateLandHolding = (props) => {
     console.log(titleSource);
     console.log(sectionName);
     console.log(name);
+    const errors = validateInput();
+    if (errors.length > 0) {
+      alert(`Invalid input: ${errors.join("\n")}`);
+      return;
+    }
     const formData = {
       legalEntity,
       netAcres,
