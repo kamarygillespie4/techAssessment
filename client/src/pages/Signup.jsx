@@ -1,12 +1,33 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = (props) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email);
+    try {
+      const response = await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password: pass }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Signup failed");
+      }
+
+      const { token, userId } = await response.json();
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("userId", userId);
+      navigate("/protected/owners");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

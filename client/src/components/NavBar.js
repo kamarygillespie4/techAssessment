@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   MDBContainer,
   MDBCollapse,
@@ -25,6 +27,12 @@ const styles = {
 };
 
 const NavBar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userId");
+    navigate("/");
+  };
   const [showNavExternal, setShowNavExternal] = useState(false);
   return (
     <>
@@ -47,14 +55,17 @@ const NavBar = () => {
 
       <MDBCollapse show={showNavExternal}>
         <div className="flex flex-row bg-light shadow-3 p-4">
-          <Button style={styles.button} href="/owners">
+          <Button style={styles.button} href="/protected/owners">
             View Owners
           </Button>
-          <Button style={styles.button} href="/ownerForm">
+          <Button style={styles.button} href="/protected/ownerForm">
             New Owner
           </Button>
-          <Button style={styles.button} href="/allHoldings">
+          <Button style={styles.button} href="/protected/allHoldings">
             View Land Holdings
+          </Button>
+          <Button style={styles.button} onClick={handleLogout}>
+            Logout{" "}
           </Button>
         </div>
       </MDBCollapse>
