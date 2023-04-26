@@ -137,22 +137,21 @@ module.exports = {
     //     res.status(500).json(err);
     //   });
   },
-
   getLandHoldings(req, res) {
-    Owner.find()
-      .exec()
-      .then((owners) => {
-        const landHoldings = owners.reduce(
-          (acc, owner) => acc.concat(owner.landHoldings),
-          []
-        );
-        return landHoldings.length === 0
-          ? res.status(404).json({ message: "No land holdings found :(" })
-          : res.json(landHoldings);
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
+    Owner.find({})
+      .populate("landHoldings")
+      .exec((err, owners) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json(err);
+        }
+        const landHoldings = owners.reduce((acc, owner) => {
+          return acc.concat(owner.landHoldings);
+        }, []);
+        if (landHoldings.length === 0) {
+          return res.status(404).json({ message: "No land holdings found :(" });
+        }
+        return res.json(landHoldings);
       });
   },
 

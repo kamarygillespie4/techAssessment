@@ -1,53 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card } from "react-bootstrap";
-
-function titleCase(str) {
-  if (!str) {
-    return "";
-  }
-  var arr = str.split(" ");
-  var newArr = [];
-  for (var i = 0; i < arr.length; i++) {
-    newArr.push(arr[i].charAt(0).toUpperCase() + arr[i].slice(1));
-  }
-  return newArr.join(" ");
-}
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
 
 function AllHoldings() {
   const [landHoldings, setLandHoldings] = useState([]);
 
   useEffect(() => {
     fetch("/api/owners/landHoldings")
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => setLandHoldings(data))
-      .catch((error) => console.error(error));
+      .catch((err) => console.log(err));
   }, []);
 
   return (
-    <div className="land-holdings-list m-1">
-      <h2 className="fs-5 p-2 fw-normal">Viewing All Land Holdings</h2>
-      <div className="row row-cols-1 row-cols-md-3 g-4">
-        {landHoldings.map((landHolding) => (
-          <div className="col" key={landHolding._id}>
-            <Card className="h-100">
-              <Card.Body>
-                <Card.Title>{titleCase(landHolding.sectionName)}</Card.Title>
-                <Card.Text>
-                  Legal Entity: {titleCase(landHolding.legalEntity)} <br />
-                  Net Mineral Acres: {landHolding.netAcres} <br />
-                  Mineral Owner Royalty: {landHolding.ownerRoyalty} <br />
-                  Section Name: {titleCase(landHolding.sectionName)} <br />
-                  Section: {landHolding.section} <br />
-                  Township: {landHolding.township} <br />
-                  Range: {landHolding.range} <br />
-                  Title Source: {titleCase(landHolding.titleSource)}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </div>
-        ))}
-      </div>
-    </div>
+    <Container>
+      <h1>All Land Holdings</h1>
+      {landHoldings.length === 0 && <p>No land holdings found.</p>}
+      {landHoldings.map((landHolding) => (
+        <Card key={landHolding._id} className="mb-3">
+          <Card.Body>
+            <Card.Title>{landHolding.name}</Card.Title>
+            <Card.Text>Legal Entity: {landHolding.legalEntity}</Card.Text>
+            <Card.Text>Net Acres: {landHolding.netAcres}</Card.Text>
+            <Card.Text>Owner Royalty: {landHolding.ownerRoyalty}</Card.Text>
+            <Card.Text>Section Name: {landHolding.sectionName}</Card.Text>
+            <Card.Text>Section: {landHolding.section}</Card.Text>
+            <Card.Text>Township: {landHolding.township}</Card.Text>
+            <Card.Text>Range: {landHolding.range}</Card.Text>
+            <Card.Text>Title Source: {landHolding.titleSource}</Card.Text>
+          </Card.Body>
+        </Card>
+      ))}
+    </Container>
   );
 }
 
