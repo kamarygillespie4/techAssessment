@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-//import LandHolding from "../../../server/models/landHolding";
 import { useParams } from "react-router-dom";
 
 const styles = {
@@ -15,7 +14,6 @@ const styles = {
     float: "left",
     background: "blue",
     color: "white",
-
     borderRadius: "5px",
     cursor: "pointer",
     marginRight: "20px",
@@ -29,7 +27,8 @@ const styles = {
     padding: "5%",
   },
 };
-var titleCase = function (str) {
+
+const titleCase = function (str) {
   if (!str) {
     return "";
   }
@@ -40,6 +39,7 @@ var titleCase = function (str) {
   }
   return newArr.join(" ");
 };
+
 const ProfileCard = (props) => {
   const { ownerId } = useParams();
 
@@ -47,6 +47,7 @@ const ProfileCard = (props) => {
   const [entityType, setEntityType] = useState("");
   const [ownerType, setOwnerType] = useState("");
   const [address, setAddress] = useState("");
+  const [landHoldingCount, setLandHoldingCount] = useState(0);
 
   useEffect(() => {
     fetch(`/api/owners/${ownerId}`)
@@ -56,6 +57,7 @@ const ProfileCard = (props) => {
         setEntityType(owner.entityType);
         setOwnerType(owner.ownerType);
         setAddress(owner.address);
+        setLandHoldingCount(owner.landHoldingCount); // Set the land holding count
       })
       .catch((error) => {
         console.error(error);
@@ -66,9 +68,11 @@ const ProfileCard = (props) => {
     <div style={styles.container}>
       <form className="ownerForm" style={styles.form}>
         <h2 className="fs-4 fw-normal mb-3">{titleCase(name)}'s Profile</h2>
+        <p>Land Holdings: {landHoldingCount}</p>{" "}
         <p>Entity Type: {titleCase(entityType)}</p>
         <p>Owner Type: {titleCase(ownerType)}</p>
         <p>Address: {titleCase(address)}</p>
+        {/* Display the land holding count */}
       </form>
     </div>
   );
