@@ -36,7 +36,6 @@ const styles = {
   },
 };
 const LandForm = (props) => {
-  //const { ownerId } = props;
   const { ownerId } = useParams();
 
   const [owner, setOwner] = useState("");
@@ -51,18 +50,10 @@ const LandForm = (props) => {
   const sectionName = section + "-" + township + "-" + range;
   const name = sectionName + " " + legalEntity;
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(owner);
-    console.log(legalEntity);
-    console.log(netAcres);
-    console.log(ownerRoyalty);
-    console.log(section);
-    console.log(township);
-    console.log(range);
-    console.log(titleSource);
-    console.log(sectionName);
-    console.log(name);
 
     const formData = {
       legalEntity,
@@ -91,7 +82,10 @@ const LandForm = (props) => {
         console.error(error);
         // handle errors
       });
+
+    navigate(`/owners/${ownerId}`);
   };
+
   return (
     <div style={styles.container}>
       <div style={styles.form}>

@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Button, CardGroup, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-var titleCase = function (str) {
+function titleCase(str) {
+  if (!str) {
+    return "";
+  }
   var arr = str.split(" ");
   var newArr = [];
   for (var i = 0; i < arr.length; i++) {
     newArr.push(arr[i].charAt(0).toUpperCase() + arr[i].slice(1));
   }
   return newArr.join(" ");
-};
+}
 
 function OwnerCard(props) {
   const { name, entityType, ownerType, address, numberOfHoldings, ownerId } =
