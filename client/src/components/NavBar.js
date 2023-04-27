@@ -24,6 +24,9 @@ const styles = {
     //fontWeight: "bold",
     fontSize: "small",
   },
+  div: {
+    padding: "1%",
+  },
 };
 
 const NavBar = () => {
@@ -35,7 +38,7 @@ const NavBar = () => {
   };
   const [showNavExternal, setShowNavExternal] = useState(false);
   return (
-    <>
+    <div style={styles.div}>
       <MDBNavbar>
         <MDBContainer fluid>
           <span className="fs-4 fw-bold">Phoenix Capital Group</span>
@@ -69,7 +72,7 @@ const NavBar = () => {
           </Button>
         </div>
       </MDBCollapse>
-    </>
+    </div>
   );
 };
 

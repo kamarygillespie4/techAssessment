@@ -7,25 +7,17 @@ const styles = {
   question: {
     display: "flex",
     flexDirection: "column",
-    margin: "1%",
-    fontSize: "small",
+    margin: "3% 1% 1% 1%",
+    padding: "1%",
+    borderBottom: "thin solid #ececec",
+    borderRight: "thin solid #ececec",
+    borderRadius: "10px",
   },
   label: {
-    // fontWeight: "normal",
-  },
-  data: {
     fontWeight: "normal",
-    fontSize: "small",
   },
   button: {
-    float: "left",
-    background: "blue",
-    color: "white",
-    width: "100%",
-    borderRadius: "5px",
-    cursor: "pointer",
-    border: "none",
-    marginTop: "2%",
+    margin: "2%",
     padding: "3%",
   },
   container: {
@@ -37,8 +29,12 @@ const styles = {
     padding: "5%",
   },
   header: {
-    marginBottom: "1%",
-    padding: "2%",
+    borderBottom: " double black",
+    paddingBottom: "3%",
+  },
+  data: {
+    fontWeight: "normal",
+    fontSize: "small",
   },
 };
 
@@ -146,7 +142,9 @@ const UpdateLandHolding = (props) => {
           style={styles.form}
           onSubmit={handleSubmit}
         >
-          <h2 className="fs-4 fw-normal ">Update Land Holding</h2>
+          <h2 className="fs-4 fw-normal " style={styles.header}>
+            Update Land Holding
+          </h2>
           <Row>
             <Col>
               <div style={styles.question}>
@@ -274,9 +272,9 @@ const UpdateLandHolding = (props) => {
               </div>
             </Col>
           </Row>
-          <button type="submit" style={styles.button}>
+          <Button type="submit" variant="primary" style={styles.button}>
             Update
-          </button>
+          </Button>
         </form>
       </div>
     </div>

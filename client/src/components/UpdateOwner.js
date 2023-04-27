@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 //import LandHolding from "../../../server/models/landHolding";
 import { useNavigate, useParams } from "react-router-dom";
+import { Row, Col, Button } from "react-bootstrap";
 
 const styles = {
   question: {
@@ -12,12 +13,6 @@ const styles = {
     fontWeight: "normal",
   },
   button: {
-    float: "left",
-    background: "blue",
-    color: "white",
-
-    borderRadius: "5px",
-    cursor: "pointer",
     margin: "2%",
     padding: "3%",
   },
@@ -29,6 +24,10 @@ const styles = {
   form: {
     padding: "5%",
   },
+  header: {
+    borderBottom: " double black",
+    paddingBottom: "3%",
+  },
 };
 
 const UpdateOwner = (props) => {
@@ -38,6 +37,7 @@ const UpdateOwner = (props) => {
   const [entityType, setEntityType] = useState("");
   const [ownerType, setOwnerType] = useState("");
   const [address, setAddress] = useState("");
+  const [owner, setOwner] = useState(null);
 
   useEffect(() => {
     fetch(`/api/owners/${ownerId}`)
@@ -47,11 +47,38 @@ const UpdateOwner = (props) => {
         setEntityType(owner.entityType);
         setOwnerType(owner.ownerType);
         setAddress(owner.address);
+        setOwner(owner);
       })
       .catch((error) => {
         console.error(error);
       });
   }, [ownerId]);
+
+  const deleteOwner = () => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this Owner? All associated Land Holdings will be deleted as well."
+      )
+    ) {
+      fetch(`/api/owners/${ownerId}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          alert("Owner deleted successfully!");
+          navigate(`/protected/owners`);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("An error occurred while deleting the Owner.");
+        });
+    }
+  };
+  if (!owner) {
+    return <div>Loading...</div>;
+  }
 
   const handleSubmit = (e) => {
     console.log(name);
@@ -85,7 +112,9 @@ const UpdateOwner = (props) => {
   return (
     <div style={styles.container}>
       <form className="ownerForm" style={styles.form} onSubmit={handleSubmit}>
-        <h2 className="fs-4 fw-normal ">Update Owner Profile</h2>
+        <h2 className="fs-4 fw-normal " style={styles.header}>
+          Update Owner Profile
+        </h2>
         <div style={styles.question}>
           <label htmlFor="name" style={styles.label}>
             Enter Owner Name:
@@ -203,9 +232,12 @@ const UpdateOwner = (props) => {
           />
         </div>
 
-        <button onClick={handleSubmit} style={styles.button}>
+        <Button onClick={handleSubmit} style={styles.button}>
           Update
-        </button>
+        </Button>
+        <Button style={styles.button} variant="danger" onClick={deleteOwner}>
+          Delete Owner
+        </Button>
       </form>
     </div>
   );

@@ -4,41 +4,33 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Card, ListGroup, Button, Col, Row } from "react-bootstrap";
 
 const styles = {
-  question: {
-    display: "flex",
-    flexDirection: "column",
-    margin: "1%",
-    fontSize: "small",
-  },
   label: {
-    // fontWeight: "normal",
-  },
-  data: {
     fontWeight: "normal",
-    fontSize: "small",
-  },
-  button: {
-    float: "left",
-    background: "#ff4f4b",
-    color: "white",
-    width: "100%",
-    borderRadius: "5px",
-    cursor: "pointer",
-    border: "none",
-    marginTop: "2%",
-    padding: "3%",
+    borderBottom: "thin solid black",
+    padding: "1% 0% 2% 0%",
   },
   container: {
     border: "1px  solid lightGray ",
-    borderRadius: "10px",
     margin: "2%",
+    borderRadius: "10px",
   },
   form: {
     padding: "5%",
   },
   header: {
-    marginBottom: "1%",
-    padding: "2%",
+    borderBottom: " double black",
+    paddingBottom: "3%",
+  },
+  span: {
+    fontWeight: "bold",
+    borderRadius: "5px",
+    background: "#f5f5f5",
+    padding: "1%",
+    marginRight: "2%",
+  },
+  button: {
+    //margin: "2%",
+    padding: "3%",
   },
 };
 var titleCase = function (str) {
@@ -121,66 +113,65 @@ const LandHoldingCard = (props) => {
   };
 
   return (
-    <div>
-      {/* <h2 className="fs-4 fw-normal " style={styles.header}>
-        {titleCase(owner)}'s Land Holding
-      </h2> */}
-      <div style={styles.container}>
-        <div className="landHoldingCard" style={styles.form}>
-          <Row>
-            <Col>
-              <div>
-                <label style={styles.label}>Name: </label>
-                <p style={styles.data}>{titleCase(name)}</p>
-              </div>
-              <div>
-                <label style={styles.label}>Owner: </label>
-                <p style={styles.data}>{titleCase(owner)}</p>
-              </div>
-              <div>
-                <label style={styles.label}>Legal Entity: </label>
-                <p style={styles.data}>{titleCase(legalEntity)}</p>
-              </div>
-              <div>
-                <label style={styles.label}>Net Mineral Acres: </label>
-                <p style={styles.data}>{titleCase(netAcres)}</p>
-              </div>
-              <div>
-                <label style={styles.label}>Mineral Owner Royalty (%): </label>
-                <p style={styles.data}>{ownerRoyalty}</p>
-              </div>
-            </Col>
-            <Col>
-              <div>
-                <label style={styles.label}>Section Name: </label>
-                <p style={styles.data}>{titleCase(sectionName)}</p>
-              </div>
-              <div>
-                <label style={styles.label}>Section: </label>
-                <p style={styles.data}>{section}</p>
-              </div>
-              <div>
-                <label style={styles.label}>Township: </label>
-                <p style={styles.data}>{titleCase(township)}</p>
-              </div>
-              <div>
-                <label style={styles.label}>Range: </label>
-                <p style={styles.data}>{range}</p>
-              </div>
-              <div>
-                <label style={styles.label}>Title Source: </label>
-                <p style={styles.data}>{titleCase(titleSource)}</p>
-              </div>
-            </Col>
-            <Button
-              type="submit"
-              style={styles.button}
-              onClick={deleteLandHolding}
-            >
-              Delete Land Holding
-            </Button>
-          </Row>
-        </div>
+    <div style={styles.container}>
+      <div className="landHoldingCard" style={styles.form}>
+        <h2 className="fs-4 fw-normal mb-3" style={styles.header}>
+          {titleCase(owner)}'s Land Holding
+        </h2>
+        <Row>
+          <Col>
+            <p style={styles.label}>
+              <span style={styles.span}>Name: </span>
+              {titleCase(name)}
+            </p>
+            <p style={styles.label}>
+              <span style={styles.span}>Owner: </span>
+              {titleCase(owner)}
+            </p>
+            <p style={styles.label}>
+              <span style={styles.span}>Legal Entity: </span>
+              {titleCase(legalEntity)}
+            </p>
+            <p style={styles.label}>
+              <span style={styles.span}>Net Mineral Acres: </span>
+              {titleCase(netAcres)}
+            </p>
+            <p style={styles.label}>
+              <span style={styles.span}>Mineral Owner Royalty (%): </span>
+              {ownerRoyalty}
+            </p>
+          </Col>
+          <Col>
+            <p style={styles.label}>
+              <span style={styles.span}>Section Name: </span>
+              {titleCase(sectionName)}
+            </p>
+            <p style={styles.label}>
+              <span style={styles.span}>Section: </span>
+              {section}
+            </p>
+            <p style={styles.label}>
+              <span style={styles.span}>Township: </span>
+              {titleCase(township)}
+            </p>
+            <p style={styles.label}>
+              <span style={styles.span}>Range: </span>
+              {range}
+            </p>
+            <p style={styles.label}>
+              <span style={styles.span}>Title Source: </span>
+              {titleCase(titleSource)}
+            </p>
+          </Col>
+          <Button
+            variant="danger"
+            style={styles.button}
+            type="submit"
+            onClick={deleteLandHolding}
+          >
+            Delete Land Holding
+          </Button>
+        </Row>
       </div>
     </div>
   );

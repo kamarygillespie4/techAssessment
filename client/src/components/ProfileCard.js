@@ -2,29 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const styles = {
-  question: {
-    display: "flex",
-    flexDirection: "column",
-    margin: "1%",
-  },
   label: {
     fontWeight: "normal",
-  },
-  button: {
-    float: "left",
-    background: "blue",
-    color: "white",
-    borderRadius: "5px",
-    cursor: "pointer",
-    marginRight: "20px",
+    borderBottom: "thin solid black",
+    padding: "1% 0% 2% 0%",
   },
   container: {
     border: "1px  solid lightGray ",
-    borderRadius: "10px",
     margin: "2%",
+    borderRadius: "10px",
   },
   form: {
     padding: "5%",
+  },
+  header: {
+    borderBottom: " double black",
+    paddingBottom: "3%",
+  },
+  span: {
+    fontWeight: "bold",
+    borderRadius: "5px",
+    background: "#f5f5f5",
+    padding: "1%",
+    marginRight: "2%",
   },
 };
 
@@ -67,11 +67,25 @@ const ProfileCard = (props) => {
   return (
     <div style={styles.container}>
       <form className="ownerForm" style={styles.form}>
-        <h2 className="fs-4 fw-normal mb-3">{titleCase(name)}'s Profile</h2>
-        <p>Land Holdings: {landHoldingCount}</p>{" "}
-        <p>Entity Type: {titleCase(entityType)}</p>
-        <p>Owner Type: {titleCase(ownerType)}</p>
-        <p>Address: {titleCase(address)}</p>
+        <h2 className="fs-4 fw-normal mb-3" style={styles.header}>
+          {titleCase(name)}'s Profile
+        </h2>
+        <p style={styles.label}>
+          <span style={styles.span}>Land Holdings: </span>
+          {landHoldingCount}
+        </p>
+        <p style={styles.label}>
+          <span style={styles.span}>Entity Type: </span>
+          {titleCase(entityType)}
+        </p>
+        <p style={styles.label}>
+          <span style={styles.span}>Owner Type: </span>
+          {titleCase(ownerType)}
+        </p>
+        <p style={styles.label}>
+          <span style={styles.span}>Address: </span>
+          {titleCase(address)}
+        </p>
         {/* Display the land holding count */}
       </form>
     </div>

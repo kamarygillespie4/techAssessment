@@ -48,60 +48,60 @@ const styles = {
 };
 
 const SingleOwner = () => {
-  const { ownerId } = useParams();
-  const [owner, setOwner] = useState(null);
-  const navigate = useNavigate();
+  // const { ownerId } = useParams();
+  // const [owner, setOwner] = useState(null);
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch(`/api/owners/${ownerId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setOwner(data);
-      })
-      .catch((error) => {
-        console.error(error);
-        // handle errors
-      });
-  }, [ownerId]);
-  const deleteOwner = () => {
-    if (
-      window.confirm(
-        "Are you sure you want to delete this Owner? All associated Land Holdings will be deleted as well."
-      )
-    ) {
-      fetch(`/api/owners/${ownerId}`, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          alert("Owner deleted successfully!");
-          navigate(`/protected/owners`);
-        })
-        .catch((error) => {
-          console.error(error);
-          alert("An error occurred while deleting the Owner.");
-        });
-    }
-  };
+  // useEffect(() => {
+  //   fetch(`/api/owners/${ownerId}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setOwner(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       // handle errors
+  //     });
+  // }, [ownerId]);
+  // const deleteOwner = () => {
+  //   if (
+  //     window.confirm(
+  //       "Are you sure you want to delete this Owner? All associated Land Holdings will be deleted as well."
+  //     )
+  //   ) {
+  //     fetch(`/api/owners/${ownerId}`, {
+  //       method: "DELETE",
+  //     })
+  //       .then((response) => {
+  //         if (!response.ok) {
+  //           throw new Error(`HTTP error! Status: ${response.status}`);
+  //         }
+  //         alert("Owner deleted successfully!");
+  //         navigate(`/protected/owners`);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //         alert("An error occurred while deleting the Owner.");
+  //       });
+  //   }
+  // };
 
-  if (!owner) {
-    return <div>Loading...</div>;
-  }
+  // if (!owner) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div>
       <NavBar />
-      <div style={styles.container}>
+      <div>
         <Row>
           <Col lg={4}>
             <ProfileCard />
             <UpdateOwner />
-            <Button style={styles.button} onClick={deleteOwner}>
+            {/* <Button style={styles.button} onClick={deleteOwner}>
               Delete Owner
-            </Button>
+            </Button> */}
           </Col>
           <Col lg={8}>
             <OwnerLandHoldings />

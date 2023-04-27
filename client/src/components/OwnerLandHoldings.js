@@ -5,27 +5,32 @@ import LandForm from "./../pages/LandForm";
 
 const styles = {
   button: {
-    float: "left",
-    // background: "#d9d9d9",
-    // color: "black",
-    width: "100%",
-    borderRadius: "5px",
-    cursor: "pointer",
-    border: "none",
-    marginTop: "2%",
-    //padding: "2%",
+    margin: "2%",
+    padding: "3%",
   },
   container: {
     border: "1px  solid lightGray ",
     borderRadius: "10px",
-    marginTop: "1%",
-    padding: "2%",
+    margin: "1%",
   },
   header: {
     marginBottom: "1%",
     padding: "1%",
+    width: "50%",
   },
-  form: {},
+  form: {
+    padding: "1% 3% 1% 3%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottom: " double black",
+  },
+  empty: {
+    padding: "3%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 };
 
 var titleCase = function (str) {
@@ -53,7 +58,7 @@ function LandHoldingCard(props) {
 
   return (
     <div className="owner-card">
-      <div className="">
+      <div className="m-3">
         <Card.Body className="m-1">
           <Card.Title className="mb-3">
             Section Name: {titleCase(landHolding.sectionName)}
@@ -81,7 +86,11 @@ function LandHoldingCard(props) {
       </div>
       <div className="text-muted">
         <Card.Footer className="h-100 d-flex flex-column ">
-          <Button variant="dark" className="" onClick={handleViewClick}>
+          <Button
+            variant="dark"
+            style={styles.button}
+            onClick={handleViewClick}
+          >
             View
           </Button>
         </Card.Footer>
@@ -113,21 +122,18 @@ const OwnerLandHoldings = (props) => {
   };
 
   return (
-    <div>
-      <Container>
-        <Row className="justify-content-between align-items-center">
-          <h2 className="fs-4 fw-normal" style={styles.header}>
-            Land Holdings
-          </h2>
-          <Button
-            variant="dark"
-            onClick={handleAddLandHolding}
-            style={styles.button}
-          >
-            Add Land Holding
-          </Button>
-        </Row>
-      </Container>
+    <div style={styles.container}>
+      <div style={styles.form}>
+        <h2 className="fs-4 fw-normal">Land Holdings</h2>
+
+        <Button
+          variant="primary"
+          onClick={handleAddLandHolding}
+          style={styles.button}
+        >
+          Add Land Holding
+        </Button>
+      </div>
       <div>
         {owner && owner.landHoldings && owner.landHoldings.length > 0 ? (
           owner.landHoldings.map((landHolding) => (
@@ -140,7 +146,7 @@ const OwnerLandHoldings = (props) => {
             </div>
           ))
         ) : (
-          <div style={styles.container}>
+          <div style={styles.empty}>
             <p>This owner has no land holdings</p>
           </div>
         )}
