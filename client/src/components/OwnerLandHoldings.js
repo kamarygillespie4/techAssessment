@@ -46,7 +46,9 @@ function LandHoldingCard(props) {
   const { landHolding, ownerId } = props;
 
   const handleViewClick = () => {
-    navigate(`/owners/${ownerId}/landHoldings/${props.landHoldingId}`);
+    navigate(
+      `/protected/owners/${ownerId}/landHoldings/${props.landHoldingId}`
+    );
   };
 
   return (
@@ -107,7 +109,7 @@ const OwnerLandHoldings = (props) => {
       });
   }, [ownerId]);
   const handleAddLandHolding = () => {
-    navigate(`/owners/${ownerId}/landHoldings`);
+    navigate(`/protected/owners/${ownerId}/landHoldings`);
   };
 
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Row, Col } from "react-bootstrap";
-
+import NavBar from "../components/NavBar";
 import UpdateLandHolding from "../components/UpdateLandHolding";
 import LandHoldingCard from "../components/LandHoldingCard";
 import { useParams } from "react-router-dom";
@@ -52,15 +52,18 @@ const SingleLandHolding = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <Row>
-        <Col lg={6}>
-          <LandHoldingCard />
-        </Col>
-        <Col lg={6}>
-          <UpdateLandHolding />
-        </Col>
-      </Row>
+    <div>
+      <NavBar />
+      <div style={styles.container}>
+        <Row>
+          <Col lg={6}>
+            <LandHoldingCard />
+          </Col>
+          <Col lg={6}>
+            <UpdateLandHolding />
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

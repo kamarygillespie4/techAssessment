@@ -75,7 +75,7 @@ const UpdateOwner = (props) => {
       .then((response) => response.json())
       .then((owner) => {
         console.log(owner);
-        navigate(`/owners/${owner._id}`);
+        navigate(`/protected/owners/${owner._id}`);
       })
       .catch((error) => {
         console.error(error);

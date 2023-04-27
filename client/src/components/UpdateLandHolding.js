@@ -60,9 +60,10 @@ const UpdateLandHolding = (props) => {
   const validateInput = () => {
     const errors = [];
 
-    if (!section.match(/^\d{3}$/)) {
+    if (section && !section.match(/^\d{3}$/)) {
       errors.push("Section must be a 3-digit number.");
     }
+
     if (!township.match(/^\d{3}[NS]$/)) {
       errors.push('Township must be a 3-digit number followed by "N" or "S".');
     }
@@ -127,7 +128,7 @@ const UpdateLandHolding = (props) => {
       .then((response) => response.json())
       .then((landHolding) => {
         console.log(landHolding);
-        navigate(`/owners/${ownerId}/landHoldings/${landHoldingId}`);
+        navigate(`/protected/owners/${ownerId}/landHoldings/${landHoldingId}`);
 
         // do something with the response
       })

@@ -111,7 +111,7 @@ const LandHoldingCard = (props) => {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           alert("Land Holding deleted successfully!");
-          navigate(`/owners/${ownerId}`);
+          navigate(`/protected/owners/${ownerId}`);
         })
         .catch((error) => {
           console.error(error);

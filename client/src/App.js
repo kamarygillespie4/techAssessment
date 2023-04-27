@@ -9,13 +9,12 @@ import AllHoldings from "./pages/AllHoldings";
 import AllOwners from "./pages/AllOwners";
 import SingleOwner from "./pages/SingleOwner";
 import SingleLandHolding from "./pages/SingleLandHolding";
-import Navbar from "./components/NavBar";
+
 import ProtectedWrapper from "./components/ProtectedWrapper";
 
 function App() {
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

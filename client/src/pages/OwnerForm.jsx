@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Row, Col, Button, Alert } from "react-bootstrap";
-
+import NavBar from "../components/NavBar";
 const styles = {
   question: {
     display: "flex",
@@ -83,7 +83,7 @@ const OwnerForm = (props) => {
       .then((owner) => {
         console.log(owner);
         if (owner) {
-          navigate(`/owners/${owner._id}`);
+          navigate(`/protected/owners/${owner._id}`);
         }
       })
       .catch((error) => {
@@ -92,135 +92,137 @@ const OwnerForm = (props) => {
       });
   };
   return (
-    <div style={styles.container}>
-      <div style={styles.form}>
-        <form className="ownerForm" onSubmit={handleSubmit}>
-          <div style={styles.header}>
-            <h2 className="fs-4 ">Create Owner</h2>
-          </div>
+    <div>
+      <div style={styles.container}>
+        <div style={styles.form}>
+          <form className="ownerForm" onSubmit={handleSubmit}>
+            <div style={styles.header}>
+              <h2 className="fs-4 ">Create Owner</h2>
+            </div>
 
-          <div style={styles.question}>
-            <label htmlFor="name" style={styles.label}>
-              Enter Owner Name:
-            </label>
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              placeholder="Owner name"
-              id="name"
-              name="name"
-            />
-          </div>
-          <div style={styles.question}>
-            <label htmlFor="entityType" style={styles.label}>
-              Select Entity Type:
-            </label>
-            <div>
+            <div style={styles.question}>
+              <label htmlFor="name" style={styles.label}>
+                Enter Owner Name:
+              </label>
               <input
-                type="radio"
-                name="entityType"
-                value="company"
-                id="company"
-                onChange={(e) => setEntityType(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+                placeholder="Owner name"
+                id="name"
+                name="name"
               />
-              <label htmlFor="company">Company</label>
             </div>
-            <div>
-              <input
-                type="radio"
-                name="entityType"
-                value="individual"
-                id="individual"
-                onChange={(e) => setEntityType(e.target.value)}
-              />
-              <label htmlFor="individual">Individual</label>
+            <div style={styles.question}>
+              <label htmlFor="entityType" style={styles.label}>
+                Select Entity Type:
+              </label>
+              <div>
+                <input
+                  type="radio"
+                  name="entityType"
+                  value="company"
+                  id="company"
+                  onChange={(e) => setEntityType(e.target.value)}
+                />
+                <label htmlFor="company">Company</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="entityType"
+                  value="individual"
+                  id="individual"
+                  onChange={(e) => setEntityType(e.target.value)}
+                />
+                <label htmlFor="individual">Individual</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="entityType"
+                  value="investor"
+                  id="investor"
+                  onChange={(e) => setEntityType(e.target.value)}
+                />
+                <label htmlFor="investor">Investor</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="entityType"
+                  value="trust"
+                  id="trust"
+                  onChange={(e) => setEntityType(e.target.value)}
+                />
+                <label htmlFor="trust">Trust</label>
+              </div>
             </div>
-            <div>
-              <input
-                type="radio"
-                name="entityType"
-                value="investor"
-                id="investor"
-                onChange={(e) => setEntityType(e.target.value)}
-              />
-              <label htmlFor="investor">Investor</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="entityType"
-                value="trust"
-                id="trust"
-                onChange={(e) => setEntityType(e.target.value)}
-              />
-              <label htmlFor="trust">Trust</label>
-            </div>
-          </div>
 
-          <div style={styles.question}>
-            <label htmlFor="ownerType" style={styles.label}>
-              Select Owner Type:
-            </label>
-            <div>
-              <input
-                type="radio"
-                name="ownerType"
-                value="competitor"
-                id="competitor"
-                onChange={(e) => setOwnerType(e.target.value)}
-              />
-              <label htmlFor="competitor">Competitor</label>
+            <div style={styles.question}>
+              <label htmlFor="ownerType" style={styles.label}>
+                Select Owner Type:
+              </label>
+              <div>
+                <input
+                  type="radio"
+                  name="ownerType"
+                  value="competitor"
+                  id="competitor"
+                  onChange={(e) => setOwnerType(e.target.value)}
+                />
+                <label htmlFor="competitor">Competitor</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="ownerType"
+                  value="seller"
+                  id="seller"
+                  onChange={(e) => setOwnerType(e.target.value)}
+                />
+                <label htmlFor="seller">Seller</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="ownerType"
+                  value="investor"
+                  id="investor"
+                  onChange={(e) => setOwnerType(e.target.value)}
+                />
+                <label htmlFor="investor">Investor</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="ownerType"
+                  value="professional"
+                  id="professional"
+                  onChange={(e) => setOwnerType(e.target.value)}
+                />
+                <label htmlFor="professional">Professional</label>
+              </div>
             </div>
-            <div>
+            <div style={styles.question}>
+              <label htmlFor="address" style={styles.label}>
+                Enter Address:
+              </label>
               <input
-                type="radio"
-                name="ownerType"
-                value="seller"
-                id="seller"
-                onChange={(e) => setOwnerType(e.target.value)}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                type="text"
+                placeholder="address"
+                id="address"
+                name="address"
               />
-              <label htmlFor="seller">Seller</label>
             </div>
-            <div>
-              <input
-                type="radio"
-                name="ownerType"
-                value="investor"
-                id="investor"
-                onChange={(e) => setOwnerType(e.target.value)}
-              />
-              <label htmlFor="investor">Investor</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="ownerType"
-                value="professional"
-                id="professional"
-                onChange={(e) => setOwnerType(e.target.value)}
-              />
-              <label htmlFor="professional">Professional</label>
-            </div>
-          </div>
-          <div style={styles.question}>
-            <label htmlFor="address" style={styles.label}>
-              Enter Address:
-            </label>
-            <input
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              type="text"
-              placeholder="address"
-              id="address"
-              name="address"
-            />
-          </div>
 
-          <Button onClick={handleSubmit} style={styles.button}>
-            Create
-          </Button>
-        </form>
+            <Button onClick={handleSubmit} style={styles.button}>
+              Create
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );

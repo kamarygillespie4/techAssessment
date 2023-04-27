@@ -35,8 +35,7 @@ const landHoldingSchema = new Schema(
     section: {
       type: Number,
       required: true,
-      minlength: 3,
-      maxlength: 3,
+      match: [/^\d{3}$/],
     },
     township: {
       type: String,

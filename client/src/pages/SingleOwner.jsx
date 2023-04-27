@@ -7,6 +7,7 @@ import ProfileCard from "../components/ProfileCard";
 import OwnerLandHoldings from "../components/OwnerLandHoldings";
 
 import { useState, useEffect } from "react";
+import NavBar from "../components/NavBar";
 const styles = {
   question: {
     display: "flex",
@@ -77,7 +78,7 @@ const SingleOwner = () => {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           alert("Owner deleted successfully!");
-          navigate(`/owners`);
+          navigate(`/protected/owners`);
         })
         .catch((error) => {
           console.error(error);
@@ -91,19 +92,22 @@ const SingleOwner = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <Row>
-        <Col lg={4}>
-          <ProfileCard />
-          <UpdateOwner />
-          <Button style={styles.button} onClick={deleteOwner}>
-            Delete Owner
-          </Button>
-        </Col>
-        <Col lg={8}>
-          <OwnerLandHoldings />
-        </Col>
-      </Row>
+    <div>
+      <NavBar />
+      <div style={styles.container}>
+        <Row>
+          <Col lg={4}>
+            <ProfileCard />
+            <UpdateOwner />
+            <Button style={styles.button} onClick={deleteOwner}>
+              Delete Owner
+            </Button>
+          </Col>
+          <Col lg={8}>
+            <OwnerLandHoldings />
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };
