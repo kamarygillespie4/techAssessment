@@ -27,8 +27,10 @@ const Login = (props) => {
       navigate("/protected/owners");
     } catch (err) {
       console.log(err);
+      alert("Login failed. Please try again.");
     }
   };
+
   return (
     <div className="auth-form-container">
       <h2>Login</h2>

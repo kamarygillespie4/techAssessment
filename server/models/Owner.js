@@ -33,7 +33,7 @@ const landHoldingSchema = new Schema(
       required: true,
     },
     section: {
-      type: Number,
+      type: String,
       required: true,
       match: [/^\d{3}$/],
     },
