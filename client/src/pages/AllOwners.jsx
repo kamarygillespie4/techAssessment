@@ -31,7 +31,6 @@ function OwnerCard(props) {
           <Card.Text>Entity Type: {titleCase(entityType)}</Card.Text>
           <Card.Text>Owner Type: {titleCase(ownerType)}</Card.Text>
           <Card.Text>Address: {titleCase(address)}</Card.Text>
-          <Card.Text>Number Of Holdings: {numberOfHoldings}</Card.Text>
         </Card.Body>
       </div>
       <div className="text-muted">

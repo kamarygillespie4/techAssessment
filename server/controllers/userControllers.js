@@ -1,15 +1,49 @@
 const { ObjectId } = require("mongoose").Types;
-
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const { User } = require("../models");
 
 module.exports = {
-  createUser(req, res) {
-    User.create(req.body)
-      .then((user) => res.json(user))
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
+  async login(req, res) {
+    const { email, password } = req.body;
+    try {
+      // Check if user exists
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+      // Check if password is correct
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+      // Create and send token
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
       });
+
+      res.status(200).json({ token, userId: user._id });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "Server error" });
+    }
+  },
+  async createUser(req, res) {
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const user = await User.create({
+        email: req.body.email,
+        password: hashedPassword,
+      });
+
+      const token = jwt.sign({ userId: user._id }, "your_jwt_secret", {
+        expiresIn: "1h",
+      });
+      res.json({ token, userId: user._id });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
   },
 
   getUsers(req, res) {
