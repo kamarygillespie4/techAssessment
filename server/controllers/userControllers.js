@@ -18,7 +18,7 @@ module.exports = {
         return res.status(401).json({ message: "Invalid credentials" });
       }
       // Create and send token
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ userId: user._id }, "supersecret", {
         expiresIn: "1h",
       });
 
