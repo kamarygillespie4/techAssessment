@@ -17,7 +17,6 @@ const styles = {
     borderBottom: " double black",
   },
   container: {
-    // border: "1px  solid lightGray ",
     margin: "2%",
   },
   form: {
@@ -78,7 +77,6 @@ function OwnerCard(props) {
         <Button onClick={handleViewOwner} variant="dark">
           View Owner
         </Button>
-        {/* Display the land holding count */}
       </div>
     </div>
   );
@@ -95,8 +93,8 @@ const AllOwners = (props) => {
       .then((data) => setOwners(data));
   }, []);
 
-  const handleAddLandHolding = () => {
-    navigate(`/protected/owners/${ownerId}/landHoldings`);
+  const handleAddOwner = () => {
+    navigate(`/protected/ownerForm`);
   };
   return (
     <div>
@@ -106,16 +104,16 @@ const AllOwners = (props) => {
           <h2>Viewing All Owners</h2>
           <Button
             variant="primary"
-            onClick={handleAddLandHolding}
+            onClick={handleAddOwner}
             style={styles.button}
           >
-            Add Land Holding
+            Add Owner
           </Button>
         </div>
         <CardGroup>
           {owners.map((owner) => (
             <div className="col-md-6 col-lg-3 col-sm-12 my-3" key={owner._id}>
-              <Card className="h-100">
+              <Card className="h-100 m-2">
                 <OwnerCard
                   name={owner.name}
                   address={owner.address}

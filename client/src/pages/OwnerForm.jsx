@@ -93,6 +93,7 @@ const OwnerForm = (props) => {
   };
   return (
     <div>
+      <NavBar />
       <div style={styles.container}>
         <div style={styles.form}>
           <form className="ownerForm" onSubmit={handleSubmit}>
