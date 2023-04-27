@@ -66,7 +66,7 @@ const ProfileCard = (props) => {
 
   return (
     <div style={styles.container}>
-      <form className="ownerForm" style={styles.form}>
+      <div className="ownerForm" style={styles.form}>
         <h2 className="fs-4 fw-normal mb-3" style={styles.header}>
           {titleCase(name)}'s Profile
         </h2>
@@ -87,7 +87,7 @@ const ProfileCard = (props) => {
           {titleCase(address)}
         </p>
         {/* Display the land holding count */}
-      </form>
+      </div>
     </div>
   );
 };

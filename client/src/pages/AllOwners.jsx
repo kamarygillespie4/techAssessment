@@ -3,6 +3,39 @@ import { Button, CardGroup, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
+const styles = {
+  label: {
+    fontWeight: "normal",
+    borderBottom: "thin solid black",
+    padding: "1% 0% 2% 0%",
+  },
+  title: {
+    padding: "0% 3% 2% 0%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottom: " double black",
+  },
+  container: {
+    // border: "1px  solid lightGray ",
+    margin: "2%",
+  },
+  form: {
+    padding: "5%",
+  },
+  header: {
+    borderBottom: " double black",
+    paddingBottom: "3%",
+  },
+  span: {
+    fontWeight: "bold",
+    borderRadius: "5px",
+    background: "#f5f5f5",
+    padding: "1%",
+    marginRight: "2%",
+  },
+};
+
 function titleCase(str) {
   if (!str) {
     return "";
@@ -16,7 +49,7 @@ function titleCase(str) {
 }
 
 function OwnerCard(props) {
-  const { name, entityType, ownerType, address, numberOfHoldings, ownerId } =
+  const { name, entityType, ownerType, address, ownerId, landHoldingCount } =
     props;
   const navigate = useNavigate();
 
@@ -25,28 +58,36 @@ function OwnerCard(props) {
   };
 
   return (
-    <div className="owner-card h-100 d-flex flex-column ">
-      <div className="mb-auto">
-        <Card.Body className="m-1">
-          <Card.Title>{titleCase(name)}</Card.Title>
-          <Card.Text>Entity Type: {titleCase(entityType)}</Card.Text>
-          <Card.Text>Owner Type: {titleCase(ownerType)}</Card.Text>
-          <Card.Text>Address: {titleCase(address)}</Card.Text>
-        </Card.Body>
-      </div>
-      <div className="text-muted">
-        <Card.Footer className="h-100 d-flex flex-column ">
-          <Button variant="dark" className="" onClick={handleViewOwner}>
-            View Owner
-          </Button>
-        </Card.Footer>
+    <div style={styles.container}>
+      <div className="ownerForm" style={styles.form}>
+        <h2 className="fs-4 fw-normal mb-3" style={styles.header}>
+          {titleCase(name)}
+        </h2>
+        <p style={styles.label}>
+          <span style={styles.span}>Entity Type: </span>
+          {titleCase(entityType)}
+        </p>
+        <p style={styles.label}>
+          <span style={styles.span}>Owner Type: </span>
+          {titleCase(ownerType)}
+        </p>
+        <p style={styles.label}>
+          <span style={styles.span}>Address: </span>
+          {titleCase(address)}
+        </p>
+        <Button onClick={handleViewOwner} variant="dark">
+          View Owner
+        </Button>
+        {/* Display the land holding count */}
       </div>
     </div>
   );
 }
 
-const AllOwners = () => {
+const AllOwners = (props) => {
+  const { ownerId } = props;
   const [owners, setOwners] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/api/owners")
@@ -54,14 +95,26 @@ const AllOwners = () => {
       .then((data) => setOwners(data));
   }, []);
 
+  const handleAddLandHolding = () => {
+    navigate(`/protected/owners/${ownerId}/landHoldings`);
+  };
   return (
     <div>
       <NavBar />
-      <div className="owners-list m-1">
-        <h2 className="fs-5 p-2 fw-normal">Viewing All Owners</h2>
+      <div style={styles.container}>
+        <div style={styles.title}>
+          <h2>Viewing All Owners</h2>
+          <Button
+            variant="primary"
+            onClick={handleAddLandHolding}
+            style={styles.button}
+          >
+            Add Land Holding
+          </Button>
+        </div>
         <CardGroup>
           {owners.map((owner) => (
-            <div className="col-md-6 col-lg-3 col-sm-12 p-1" key={owner._id}>
+            <div className="col-md-6 col-lg-3 col-sm-12 my-3" key={owner._id}>
               <Card className="h-100">
                 <OwnerCard
                   name={owner.name}

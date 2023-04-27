@@ -1,6 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
+const styles = {
+  header: {
+    borderBottom: " double black",
+    paddingBottom: "3%",
+  },
+  button: {
+    marginTop: "1%",
+    padding: "1%",
+  },
+  container: {
+    margin: "2% 5%",
+    borderRadius: "10px",
+  },
+};
 const Signup = (props) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -27,12 +42,14 @@ const Signup = (props) => {
       navigate("/protected/owners");
     } catch (err) {
       console.log(err);
+      alert("Sign up failed. Please try again.");
     }
   };
 
   return (
-    <div className="auth-form-container">
-      <h2>Sign up</h2>
+    <div className="auth-form-container" style={styles.container}>
+      <img src="https://phxcapitalgroup.com/wp-content/uploads/2023/03/March-2023-Update-Web-2-Tiny.png" />
+
       <form className="register-form" onSubmit={handleSubmit}>
         <label htmlFor="email">email</label>
         <input
@@ -52,11 +69,13 @@ const Signup = (props) => {
           id="password"
           name="password"
         />
-        <button type="submit">Sign up</button>
+        <Button style={styles.button} variant="primary" type="submit">
+          Sign Up{" "}
+        </Button>
       </form>
-      <button href="/signup">
-        <a href="/">Already have an account? Login here.</a>
-      </button>
+      <Button style={styles.button} variant="light" href="/">
+        Already have an account? Login here.
+      </Button>
     </div>
   );
 };

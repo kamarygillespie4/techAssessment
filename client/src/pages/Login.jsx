@@ -1,7 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+const styles = {
+  header: {
+    borderBottom: " double black",
+    paddingBottom: "3%",
+  },
+  button: {
+    marginTop: "1%",
+    padding: "1%",
+  },
+  container: {
+    margin: "2% 5%",
+    borderRadius: "10px",
+  },
+};
 
-const Login = (props) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const navigate = useNavigate();
@@ -32,8 +47,9 @@ const Login = (props) => {
   };
 
   return (
-    <div className="auth-form-container">
-      <h2>Login</h2>
+    <div className="auth-form-container" style={styles.container}>
+      <img src="https://phxcapitalgroup.com/wp-content/uploads/2023/03/March-2023-Update-Web-2-Tiny.png" />
+
       <form className="login-form" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
@@ -53,11 +69,13 @@ const Login = (props) => {
           id="password"
           name="password"
         />
-        <button type="submit">Log In</button>
+        <Button style={styles.button} variant="primary" type="submit">
+          Log In
+        </Button>
       </form>
-      <button href="/signup">
-        <a href="/signup">Don't have an account? Signup here.</a>
-      </button>
+      <Button style={styles.button} variant="light" href="/signup">
+        Don't have an account? Signup here.
+      </Button>
     </div>
   );
 };

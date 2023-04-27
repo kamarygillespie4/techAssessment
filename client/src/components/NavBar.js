@@ -13,20 +13,21 @@ import { SlMenu } from "react-icons/sl";
 const styles = {
   button: {
     //float: "left",
-    background: "#d9d9d9",
-    color: "black",
+    //background: "#d9d9d9",
+    //color: "black",
     //width: "100%",
     borderRadius: "5px",
     cursor: "pointer",
-    border: "none",
+    borderColor: "#d9d9d9",
     marginRight: "2%",
-    padding: "1% 2% 1% 2%",
+    //padding: "1% 2% 1% 2%",
     //fontWeight: "bold",
     fontSize: "small",
+    marginBottom: "2%",
   },
-  div: {
-    padding: "1%",
-  },
+  // div: {
+  //   padding: "1%",
+  // },
 };
 
 const NavBar = () => {
@@ -58,16 +59,32 @@ const NavBar = () => {
 
       <MDBCollapse show={showNavExternal}>
         <div className="flex flex-row bg-light shadow-3 p-4">
-          <Button style={styles.button} href="/protected/owners">
+          <Button
+            style={styles.button}
+            variant="primary"
+            href="/protected/owners"
+          >
             View Owners
           </Button>
-          <Button style={styles.button} href="/protected/ownerForm">
+          <Button
+            style={styles.button}
+            variant="primary"
+            href="/protected/ownerForm"
+          >
             New Owner
           </Button>
-          <Button style={styles.button} href="/protected/allHoldings">
+          <Button
+            style={styles.button}
+            variant="primary"
+            href="/protected/allHoldings"
+          >
             View Land Holdings
           </Button>
-          <Button style={styles.button} onClick={handleLogout}>
+          <Button
+            style={styles.button}
+            variant="primary"
+            onClick={handleLogout}
+          >
             Logout{" "}
           </Button>
         </div>

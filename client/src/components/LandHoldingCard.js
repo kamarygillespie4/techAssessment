@@ -7,7 +7,7 @@ const styles = {
   label: {
     fontWeight: "normal",
     borderBottom: "thin solid black",
-    padding: "1% 0% 2% 0%",
+    padding: "5% 0%",
   },
   container: {
     border: "1px  solid lightGray ",
@@ -29,7 +29,7 @@ const styles = {
     marginRight: "2%",
   },
   button: {
-    //margin: "2%",
+    marginTop: "4%",
     padding: "3%",
   },
 };
@@ -116,7 +116,7 @@ const LandHoldingCard = (props) => {
     <div style={styles.container}>
       <div className="landHoldingCard" style={styles.form}>
         <h2 className="fs-4 fw-normal mb-3" style={styles.header}>
-          {titleCase(owner)}'s Land Holding
+          {titleCase(sectionName)} - {titleCase(legalEntity)}
         </h2>
         <Row>
           <Col>

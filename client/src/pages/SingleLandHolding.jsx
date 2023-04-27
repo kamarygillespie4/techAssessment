@@ -1,33 +1,16 @@
 import React from "react";
-import { Button, Row, Col } from "react-bootstrap";
-import NavBar from "../components/NavBar";
-import UpdateLandHolding from "../components/UpdateLandHolding";
-import LandHoldingCard from "../components/LandHoldingCard";
+import { Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const styles = {
-  button: {
-    float: "left",
-    background: "blue",
-    color: "white",
-    width: "100%",
-    borderRadius: "5px",
-    cursor: "pointer",
-    margin: "2%",
-    padding: "3%",
-  },
-  container: {
-    //border: "1px  solid lightGray ",
-    //borderRadius: "10px",
-    margin: "2%",
-  },
-};
+import NavBar from "../components/NavBar";
+import UpdateLandHolding from "../components/UpdateLandHolding";
+import LandHoldingCard from "../components/LandHoldingCard";
 
 const SingleLandHolding = () => {
   const { ownerId, landHoldingId } = useParams();
   const [owner, setOwner] = useState(null);
-  const [landHolding, setLandHolding] = useState(null);
+  //const [landHolding, setLandHolding] = useState(null);
 
   const [error, setError] = useState(null);
 
@@ -36,7 +19,7 @@ const SingleLandHolding = () => {
       .then((response) => response.json())
       .then((owner) => {
         setOwner(owner);
-        setLandHolding(owner.landHolding);
+        //setLandHolding(owner.landHolding);
       })
       .catch((error) => {
         setError(error);
@@ -54,7 +37,7 @@ const SingleLandHolding = () => {
   return (
     <div>
       <NavBar />
-      <div style={styles.container}>
+      <div className="m-2">
         <Row>
           <Col lg={6}>
             <LandHoldingCard />
