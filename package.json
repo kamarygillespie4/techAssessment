@@ -1,0 +1,26 @@
+{
+  "name": "techassessment",
+  "version": "1.0.0",
+  "description": "## Wireframe",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server":"cd server && npm start",
+    "client":"cl client && npm start",
+    "dev":"concurrently npm run server && npm run client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamarygillespie4/techAssessment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamarygillespie4/techAssessment/issues"
+  },
+  "homepage": "https://github.com/kamarygillespie4/techAssessment#readme",
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
