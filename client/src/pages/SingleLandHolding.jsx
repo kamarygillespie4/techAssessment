@@ -9,9 +9,8 @@ import LandHoldingCard from "../components/LandHoldingCard";
 
 const SingleLandHolding = () => {
   const { ownerId, landHoldingId } = useParams();
-  const [owner, setOwner] = useState(null);
-  //const [landHolding, setLandHolding] = useState(null);
 
+  const [owner, setOwner] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -19,17 +18,14 @@ const SingleLandHolding = () => {
       .then((response) => response.json())
       .then((owner) => {
         setOwner(owner);
-        //setLandHolding(owner.landHolding);
       })
       .catch((error) => {
         setError(error);
       });
   }, [ownerId]);
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
   if (!owner) {
     return <div>Loading...</div>;
   }

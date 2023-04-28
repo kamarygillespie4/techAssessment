@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./../components/NavBar";
-import { Button, CardGroup, Card } from "react-bootstrap";
+import { CardGroup, Card } from "react-bootstrap";
 
 function titleCase(str) {
   if (!str) {

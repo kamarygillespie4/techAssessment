@@ -48,8 +48,7 @@ function titleCase(str) {
 }
 
 function OwnerCard(props) {
-  const { name, entityType, ownerType, address, ownerId, landHoldingCount } =
-    props;
+  const { name, entityType, ownerType, address, ownerId } = props;
   const navigate = useNavigate();
 
   const handleViewOwner = () => {
@@ -83,7 +82,7 @@ function OwnerCard(props) {
 }
 
 const AllOwners = (props) => {
-  const { ownerId } = props;
+  //const { ownerId } = props;
   const [owners, setOwners] = useState([]);
   const navigate = useNavigate();
 

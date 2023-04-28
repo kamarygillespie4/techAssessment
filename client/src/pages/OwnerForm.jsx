@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Row, Col, Button, Alert } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 const styles = {
   question: {
@@ -10,7 +10,6 @@ const styles = {
   },
   header: {
     marginBottom: "1%",
-    //padding: "2%",
     fontWeight: "bolder",
   },
   label: {
@@ -36,14 +35,13 @@ const styles = {
     padding: "5%",
   },
 };
-const OwnerForm = (props) => {
+const OwnerForm = () => {
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [entityType, setEntityType] = useState("");
   const [ownerType, setOwnerType] = useState("");
   const [address, setAddress] = useState("");
-  const [error, setError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,7 +66,6 @@ const OwnerForm = (props) => {
     })
       .then((response) => {
         if (response.status === 409) {
-          // An owner already exists with the same name and address
           return response.json().then((data) => {
             window.alert(data.message);
           });

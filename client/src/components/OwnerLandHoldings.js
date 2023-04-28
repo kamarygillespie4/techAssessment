@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, Card, ListGroup, Button, Col, Row } from "react-bootstrap";
-import LandForm from "./../pages/LandForm";
+import { Card, Button, Col, Row } from "react-bootstrap";
 
 const styles = {
   button: {
@@ -13,11 +12,7 @@ const styles = {
     borderRadius: "10px",
     margin: "1%",
   },
-  header: {
-    marginBottom: "1%",
-    padding: "1%",
-    width: "50%",
-  },
+
   form: {
     padding: "1% 3% 1% 3%",
     display: "flex",
@@ -47,8 +42,9 @@ var titleCase = function (str) {
 };
 
 function LandHoldingCard(props) {
-  const navigate = useNavigate();
   const { landHolding, ownerId } = props;
+
+  const navigate = useNavigate();
 
   const handleViewClick = () => {
     navigate(
@@ -117,6 +113,7 @@ const OwnerLandHoldings = (props) => {
         console.error(error);
       });
   }, [ownerId]);
+
   const handleAddLandHolding = () => {
     navigate(`/protected/owners/${ownerId}/landHoldings`);
   };

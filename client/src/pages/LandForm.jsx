@@ -10,7 +10,6 @@ const styles = {
   },
   header: {
     marginBottom: "1%",
-    //padding: "2%",
     fontWeight: "bolder",
   },
   label: {
@@ -36,10 +35,9 @@ const styles = {
     padding: "5%",
   },
 };
-const LandForm = (props) => {
+const LandForm = () => {
   const { ownerId } = useParams();
 
-  const [owner, setOwner] = useState("");
   const [legalEntity, setLegalEntity] = useState("");
   const [netAcres, setNetAcres] = useState("");
   const [ownerRoyalty, setOwnerRoyalty] = useState("");
@@ -96,11 +94,9 @@ const LandForm = (props) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // do something with the response
       })
       .catch((error) => {
         console.error(error);
-        // handle errors
       });
 
     navigate(`/protected/owners/${ownerId}`);

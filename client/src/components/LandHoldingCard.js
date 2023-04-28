@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-//import LandHolding from "../../../server/models/landHolding";
 import { useParams, useNavigate } from "react-router-dom";
-import { Card, ListGroup, Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 
 const styles = {
   label: {
@@ -33,6 +32,7 @@ const styles = {
     padding: "3%",
   },
 };
+
 var titleCase = function (str) {
   if (!str || typeof str !== "string") return "";
 
@@ -43,8 +43,10 @@ var titleCase = function (str) {
   }
   return newArr.join(" ");
 };
-const LandHoldingCard = (props) => {
+
+const LandHoldingCard = () => {
   const { ownerId, landHoldingId } = useParams();
+
   const [legalEntity, setLegalEntity] = useState("");
   const [netAcres, setNetAcres] = useState("");
   const [ownerRoyalty, setOwnerRoyalty] = useState("");
@@ -53,10 +55,11 @@ const LandHoldingCard = (props) => {
   const [range, setRange] = useState("");
   const [titleSource, setTitleSource] = useState("");
   const [name, setName] = useState("");
-  const navigate = useNavigate();
-
   const [sectionName, setSectionName] = useState("");
   const [owner, setOwner] = useState("");
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetch(`/api/owners/${ownerId}`)
       .then((response) => {
@@ -78,7 +81,6 @@ const LandHoldingCard = (props) => {
     fetch(`/api/owners/${ownerId}/landHoldings/${landHoldingId}`)
       .then((response) => response.json())
       .then((landHolding) => {
-        //setOwner(landHolding.owner);
         setName(landHolding.name);
         setNetAcres(landHolding.netAcres);
         setOwnerRoyalty(landHolding.ownerRoyalty);
@@ -93,6 +95,7 @@ const LandHoldingCard = (props) => {
         console.error(error);
       });
   }, [ownerId]);
+
   const deleteLandHolding = () => {
     if (window.confirm("Are you sure you want to delete this landholding?")) {
       fetch(`/api/owners/${ownerId}/landHoldings/${landHoldingId}`, {

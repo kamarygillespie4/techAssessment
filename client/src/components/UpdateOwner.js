@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-//import LandHolding from "../../../server/models/landHolding";
+
 import { useNavigate, useParams } from "react-router-dom";
-import { Row, Col, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 const styles = {
   question: {
@@ -30,7 +30,7 @@ const styles = {
   },
 };
 
-const UpdateOwner = (props) => {
+const UpdateOwner = () => {
   const { ownerId } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -80,7 +80,7 @@ const UpdateOwner = (props) => {
     return <div>Loading...</div>;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     console.log(name);
     console.log(entityType);
     console.log(ownerType);

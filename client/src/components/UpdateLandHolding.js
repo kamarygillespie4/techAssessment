@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-//import LandHolding from "../../../server/models/landHolding";
 import { useNavigate, useParams } from "react-router-dom";
-import { Card, ListGroup, Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 
 const styles = {
   question: {
@@ -32,17 +31,12 @@ const styles = {
     borderBottom: " double black",
     paddingBottom: "3%",
   },
-  data: {
-    fontWeight: "normal",
-    fontSize: "small",
-  },
 };
 
 const UpdateLandHolding = (props) => {
   const { ownerId, landHoldingId } = useParams();
   const navigate = useNavigate();
 
-  const [owner, setOwner] = useState("");
   const [legalEntity, setLegalEntity] = useState("");
   const [netAcres, setNetAcres] = useState("");
   const [ownerRoyalty, setOwnerRoyalty] = useState("");
@@ -53,20 +47,18 @@ const UpdateLandHolding = (props) => {
 
   const sectionName = section + "-" + township + "-" + range;
   const name = sectionName + "-" + legalEntity;
+
   const validateInput = () => {
     const errors = [];
-
     if (section && !section.match(/^\d{3}$/)) {
       errors.push("Section must be a 3-digit number.");
     }
-
     if (!township.match(/^\d{3}[NS]$/)) {
       errors.push('Township must be a 3-digit number followed by "N" or "S".');
     }
     if (!range.match(/^\d{3}[EW]$/)) {
       errors.push('Range must be a 3-digit number followed by "E" or "W".');
     }
-
     return errors;
   };
 
@@ -125,12 +117,9 @@ const UpdateLandHolding = (props) => {
       .then((landHolding) => {
         console.log(landHolding);
         navigate(`/protected/owners/${ownerId}/landHoldings/${landHoldingId}`);
-
-        // do something with the response
       })
       .catch((error) => {
         console.error(error);
-        // handle errors
       });
   };
 

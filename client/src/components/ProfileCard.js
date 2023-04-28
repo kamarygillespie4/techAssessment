@@ -57,7 +57,7 @@ const ProfileCard = (props) => {
         setEntityType(owner.entityType);
         setOwnerType(owner.ownerType);
         setAddress(owner.address);
-        setLandHoldingCount(owner.landHoldingCount); // Set the land holding count
+        setLandHoldingCount(owner.landHoldingCount);
       })
       .catch((error) => {
         console.error(error);
@@ -86,7 +86,6 @@ const ProfileCard = (props) => {
           <span style={styles.span}>Address: </span>
           {titleCase(address)}
         </p>
-        {/* Display the land holding count */}
       </div>
     </div>
   );

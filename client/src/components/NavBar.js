@@ -7,37 +7,30 @@ import {
   MDBNavbar,
   MDBNavbarToggler,
 } from "mdb-react-ui-kit";
-import { Card, ListGroup, Button, Col, Row } from "react-bootstrap";
-
+import { Button } from "react-bootstrap";
 import { SlMenu } from "react-icons/sl";
+
 const styles = {
   button: {
-    //float: "left",
-    //background: "#d9d9d9",
-    //color: "black",
-    //width: "100%",
     borderRadius: "5px",
     cursor: "pointer",
     borderColor: "#d9d9d9",
     marginRight: "2%",
-    //padding: "1% 2% 1% 2%",
-    //fontWeight: "bold",
     fontSize: "small",
     marginBottom: "2%",
   },
-  // div: {
-  //   padding: "1%",
-  // },
 };
 
 const NavBar = () => {
   const navigate = useNavigate();
+
+  const [showNavExternal, setShowNavExternal] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userId");
     navigate("/");
   };
-  const [showNavExternal, setShowNavExternal] = useState(false);
   return (
     <div style={styles.div}>
       <MDBNavbar>
