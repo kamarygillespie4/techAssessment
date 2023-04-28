@@ -23,13 +23,11 @@ module.exports = {
     Owner.findOne({ name: req.body.name, address: req.body.address })
       .then((existingOwner) => {
         if (existingOwner) {
-          // An owner already exists with the same name and address
           return res.status(409).json({
             message: "An owner with the same name and address already exists",
             owner: existingOwner,
           });
         } else {
-          // Create a new owner
           Owner.create(req.body)
             .then((owner) => res.json(owner))
             .catch((err) => {
@@ -59,23 +57,15 @@ module.exports = {
   },
 
   deleteOwner(req, res) {
-    //find a thought whos ID matches the one passed in the request parameters and delete it
     Owner.findOneAndDelete({ _id: req.params.ownerId })
       .then((owner) => {
         if (!owner) {
-          //if the thought is not found, return the message 'No thought with this id!'
           res.status(404).json({ message: "No thought with this id!" });
         }
-        //if the thought was deleted, find the user with that thought and pull the thought from their thoughts array
-        // User.findOneAndUpdate(
-        //   { thoughts: req.params.thoughtId },
-        //   { $pull: { thoughts: req.params.thoughtId } },
-        //   { new: true }
-        // );
       })
-      //message if successful
+
       .then(() => res.json({ message: "owner deleted!" }))
-      //error handling
+
       .catch((err) => res.status(500).json(err));
   },
 
@@ -118,24 +108,6 @@ module.exports = {
         return res.json(owner);
       })
       .catch((err) => res.status(500).json(err));
-
-    // Owner.findOneAndUpdate(
-    //   { _id: ownerId, "landHoldings._id": landHoldingId },
-
-    //   { new: true }
-    // )
-    //   .then((owner) => {
-    //     if (!owner) {
-    //       return res
-    //         .status(404)
-    //         .json({ message: "No owner found with that ID :(" });
-    //     }
-    //     res.json(owner);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     res.status(500).json(err);
-    //   });
   },
   getLandHoldings(req, res) {
     Owner.find({})

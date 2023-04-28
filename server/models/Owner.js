@@ -2,20 +2,10 @@ const { Schema, model, Types } = require("mongoose");
 
 const landHoldingSchema = new Schema(
   {
-    // landHoldingId: {
-    //   // Mongoose's ObjectId data type
-    //   type: Schema.Types.ObjectId,
-    //   // Default value is set to a new ObjectId
-    //   default: () => new Types.ObjectId(),
-    // },
     name: {
       type: String,
       required: true,
     },
-    // owner: {
-    //   type: String,
-    //   required: true,
-    // },
     legalEntity: {
       type: String,
       required: true,
