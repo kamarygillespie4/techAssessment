@@ -22,7 +22,6 @@ This project is a full-stack single-page application built with the MERN stack (
 - Node.js
 - bcrypt
 - JSON Web Tokens (JWT)
-- Axios
 
 ## License
 
